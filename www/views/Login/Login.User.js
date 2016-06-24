@@ -2,10 +2,15 @@
 (function () {
   'use strict';
   var loginCtrl = [
-      function () {
-        angular.noop();
-      }
-    ],
+    '$state',
+    function ($state) {
+      var vm = this;
+
+      vm.signIn = function () {
+        $state.go('app.home');
+      };
+    }
+  ],
     loginConfig = [
       '$stateProvider',
       function ($stateProvider) {

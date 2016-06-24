@@ -17,6 +17,9 @@ $dark:                            #444 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
+$balanced:                        #6FB43F !default;
+
+
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
@@ -29,14 +32,40 @@ ion-nav-view,
 [nav-view-transition="ios"][nav-view-direction="back"] {
   background: white;
 }
-
-
-
-.button.button-facebook {
-  color: white;
-  background: #3b5998;
+.loading-container {
+  .loading {
+    border-radius: 50%;
+    background: white;
+    img {
+      border-radius: 50%;
+    }
+  }
 }
 
-@import "Client/list";
-@import "Client/details";
-@import "Workout/editExercises";
+.facebook {
+  color: white;
+  background: #3b5998 !important;
+}
+
+.login {
+  .scroll,
+  .slider {
+    height: 100%;
+  }
+  .slider-slide {
+    padding: 10px;
+    h1, h2, h3, h4 {
+      margin: 20px auto;
+      line-height: 1.5;
+    }
+  }
+}
+
+
+.button-box {
+  font-size: 48px;
+  font-weight: 900;
+  padding: 40px;
+  margin: 20px;
+  line-height: 1.25;
+}
