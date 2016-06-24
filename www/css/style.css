@@ -1,0 +1,36 @@
+/* Empty. Add your own CSS if you like */
+
+.popup {
+  width: 80% !important;
+}
+
+.ion-24 {
+  font-size: 24px !important;
+}
+
+.workout-list .icon {
+  margin-right: 10px;
+}
+
+.workout .item .row,
+.workout .item .col {
+  padding: 0;
+}
+
+
+/*
+ * http://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
+ */
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}

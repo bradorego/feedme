@@ -1,0 +1,43 @@
+<ion-view view-title="Brad Orego">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-android-arrow-back" ui-sref="app.clients"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+  </ion-nav-buttons>
+  <ion-content class="padding">
+    <ion-list class="workout-list">
+      <ion-item ng-repeat="workout in workouts" ui-sref="app.workout">
+        <div class="row">
+          <div class="col col-50">
+            <h2>{{workout.title}}</h2>
+          </div>
+          <div class="col col-25 ion-24">
+            <i class="icon ion-cube"></i>{{workout.exercises}}
+          </div>
+          <div class="col col-25 ion-24">
+            <i class="icon ion-ribbon-b"></i>{{workout.completions}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-50">
+            <small>Last Completed: {{workout.lastCompleted}}</small>
+          </div>
+          <div class="col col-25 ion-24">
+            <i class="icon ion-chatboxes"></i>{{workout.comments}}
+          </div>
+          <div class="col col-25 ion-24">
+            <i class="icon ion-android-alarm-clock"></i>{{workout.reminder ? "On" : "Off"}}
+          </div>
+        </div>
+
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar class="bar-light" ui-sref="app.addWorkout">
+    <h1 class="title">Add Workout</h1>
+    <div class="buttons">
+      <button class="button button-icon ion-plus"></button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

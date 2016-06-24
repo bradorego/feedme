@@ -1,0 +1,8 @@
+.exercises {
+  .item-thumbnail-left {
+    padding-left: 131px;
+    & > img:first-child {
+      max-width: 106px;
+    }
+  }
+}
