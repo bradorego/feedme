@@ -1,0 +1,1359 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"elaps",
+				"elapsedMinutes"
+			],
+			[
+				"cu",
+				"cumulativeDuration"
+			],
+			[
+				"ion-button",
+				"ionic-css-button	ionic-css-button"
+			],
+			[
+				"cord",
+				"cordovaFileTransfer"
+			],
+			[
+				"cordova",
+				"cordovaFileTransfer"
+			],
+			[
+				"refresh",
+				"refreshTokens"
+			],
+			[
+				"cordVa",
+				"cordovaFileTransfer"
+			],
+			[
+				"editE",
+				"editExercisesResolve"
+			],
+			[
+				"getMEssa",
+				"getMessagesRef"
+			],
+			[
+				"message",
+				"messageRef"
+			],
+			[
+				"messa",
+				"messageRef"
+			],
+			[
+				"cli",
+				"client"
+			],
+			[
+				"defau",
+				"defaultPicURL"
+			],
+			[
+				"cor",
+				"cordovaFileTransfer"
+			],
+			[
+				"playlI",
+				"playlistId"
+			],
+			[
+				"refre",
+				"refresh_token"
+			],
+			[
+				"oua",
+				"oauth2Client"
+			],
+			[
+				"deviced",
+				"deviceDetailsCtrl"
+			],
+			[
+				"deviceDetail",
+				"deviceDetailsConfig"
+			],
+			[
+				"dev",
+				"DevicesDec"
+			],
+			[
+				"l",
+				"LoginConfig"
+			],
+			[
+				"au",
+				"Authentication"
+			],
+			[
+				"ionicDep",
+				"ionicDeployDef"
+			],
+			[
+				"cc3000",
+				"cc3000ConnectFail"
+			],
+			[
+				"weatherData",
+				"weatherDataShown"
+			],
+			[
+				"forgotPass",
+				"forgotPassCtrl"
+			],
+			[
+				"loginC",
+				"loginCtrl"
+			],
+			[
+				"app",
+				"appConfig"
+			],
+			[
+				"hme",
+				"homeConfig"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"Cust",
+				"CustomerFactory"
+			],
+			[
+				"state",
+				"stateParams"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "www/views/Home/home.js",
+			"settings":
+			{
+				"buffer_size": 829,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/views/Home/home.html",
+			"settings":
+			{
+				"buffer_size": 828,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/views/Home/status.js",
+			"settings":
+			{
+				"buffer_size": 588,
+				"line_ending": "Unix",
+				"name": "thinking.js"
+			}
+		},
+		{
+			"file": "www/js/services/EatStreet.js",
+			"settings":
+			{
+				"buffer_size": 1174,
+				"line_ending": "Unix",
+				"name": "EatStreet.js"
+			}
+		},
+		{
+			"contents": "// User.js\n(function () {\n  'use strict';\n  var UserFact = [\n    '$firebaseAuth',\n    'FB_ROOT',\n    function () {\n      var User = {},\n        ;\n\n      User.authenticate = function () {\n\n      };\n\n      User.create = function (object) {\n\n      };\n\n      return User;\n    }\n  ];\n\n  angular.module('feed-me')\n    .service('User', UserFact);\n}());\n",
+			"file": "www/js/services/User.js",
+			"file_size": 250,
+			"file_write_time": 131112801770000000,
+			"settings":
+			{
+				"buffer_size": 346,
+				"line_ending": "Unix",
+				"name": "User.js"
+			}
+		},
+		{
+			"file": "www/views/Home/status.html",
+			"settings":
+			{
+				"buffer_size": 12,
+				"line_ending": "Unix",
+				"name": "thinking.html"
+			}
+		},
+		{
+			"file": "www/js/app.js",
+			"settings":
+			{
+				"buffer_size": 2392,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scss/ionic.app.scss",
+			"settings":
+			{
+				"buffer_size": 1538,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"trailing",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 476.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/mi-bradorego/Development/feed-me-madison",
+		"/Users/mi-bradorego/Development/feed-me-madison/scss",
+		"/Users/mi-bradorego/Development/feed-me-madison/www",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/css",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/js/-compiled",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/js/directives",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/js/services",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/lib",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/lib/angularfire/dist",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Home",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Login"
+	],
+	"file_history":
+	[
+		"/Users/mi-bradorego/Development/feed-me-madison/bower.json",
+		"/Users/mi-bradorego/Development/feed-me-madison/gulpfile.js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/index.html",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/lib/eatstreet.min.js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/menu.html",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Login/Login.User.js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Login/login.User.html",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/js/app.js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/css/style.css",
+		"/Users/mi-bradorego/Development/feed-me-madison/config.xml",
+		"/Users/mi-bradorego/Development/feed-me-madison/package.json",
+		"/Users/mi-bradorego/Development/refit-trainer/scss/Client/list.scss",
+		"/Users/mi-bradorego/Development/refit-trainer/server.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Workout/editExercises.Workout.html",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Client/detail.Client.html",
+		"/Users/mi-bradorego/Development/refit-trainer/www/js/services/User.user.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Login/Login.User.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/js/services/Client.client.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/index.html",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Workout/editExercises.Workout.js",
+		"/Users/mi-bradorego/Development/refit-trainer/platforms/ios/build/emulator/Revu Fitness.app/www/views/Client/client.Client.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/js/services/Workout.workout.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/menu.html",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Client/list.Client.html",
+		"/Users/mi-bradorego/Development/refit-trainer/scss/ionic.app.scss",
+		"/Users/mi-bradorego/Development/refit-trainer/scss/Client/details.scss",
+		"/Users/mi-bradorego/Development/refit-trainer/scss/Workout/editExercises.scss",
+		"/Users/mi-bradorego/Development/refit-trainer/platforms/android/AndroidManifest.xml",
+		"/Users/mi-bradorego/Development/refit-trainer/www/js/-compiled/all.js",
+		"/Users/mi-bradorego/Development/refit-trainer/bower.json",
+		"/Users/mi-bradorego/Development/refit-trainer/www/js/directives/angular-youtube-embed.min.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Client/list.Client.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/js/services/YouTube.ReFit.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Client/detail.Client.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Login/login.User.html",
+		"/Users/mi-bradorego/Development/refit-trainer/config.xml",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Login/claim.user.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Login/claim.user.html",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Login/signUp.User.html",
+		"/Users/mi-bradorego/Development/refit-trainer/gulpfile.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Workout/workout.Workout.html",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Client/client.Client.html",
+		"/Users/mi-bradorego/Development/refit-trainer/.gitignore",
+		"/Users/mi-bradorego/Development/refit-trainer/package.json",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Workout/workout.Workout.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Workout/addWorkout.Workout.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Session/completedSession.Workout.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/views/Client/client.Client.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/js/gulpfile.js",
+		"/Users/mi-bradorego/Development/refit-trainer/www/js/controllers.js",
+		"/Users/mi-bradorego/Development/bradorego/README.md",
+		"/Users/mi-bradorego/Development/bradorego/static/less/clean-blog.less",
+		"/Users/mi-bradorego/Development/bradorego/layouts/post/summary.html",
+		"/Users/mi-bradorego/Development/bradorego/layouts/_default/list.html",
+		"/Users/mi-bradorego/Development/bradorego/public/index.xml",
+		"/Users/mi-bradorego/Development/bradorego/content/case-study/better-mcbw.md",
+		"/Users/mi-bradorego/Development/bradorego/content/case-study/ionic.md",
+		"/Users/mi-bradorego/Development/bradorego/layouts/case-study/list.html",
+		"/Users/mi-bradorego/Development/bradorego/layouts/post/archive.html",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/mobileigniter.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/ionic.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/better-mcbw.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/trinker.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/nextt.md",
+		"/Users/mi-bradorego/Development/bradorego/layouts/partials/header.html",
+		"/Users/mi-bradorego/Development/bradorego/layouts/partials/sidebar.html",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/clean-clear-waters.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2013-03-11-foursquare-heatmap.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2013-04-25-open-letter-okcupid.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2014-02-20-progressive-enhancement-phonegap.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2014-07-15-transparency-of-offline.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2016-04-12-back-to-static.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/patently-clear.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/zebradog.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/inspiredance.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/design-studio-etc.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/case-study/biodance.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2013-02-27-note-taking.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2012-12-22-ditw-stovetop.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2012-12-22-content.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2012-11-23-new-site.md",
+		"/Users/mi-bradorego/Development/bradorego/layouts/404.html",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2013-03-16-importance-of-flow.md",
+		"/Users/mi-bradorego/Development/bradorego/content/about.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/2016-04-12-to-static.md",
+		"/Users/mi-bradorego/Development/bradorego/archetypes/post.md",
+		"/Users/mi-bradorego/Development/bradorego/layouts/partials/page-header.html",
+		"/Users/mi-bradorego/Development/bradorego/layouts/partials/related-posts.html",
+		"/Users/mi-bradorego/Development/bradorego/layouts/partials/tags.html",
+		"/Users/mi-bradorego/Development/bradorego/layouts/partials/footer.html",
+		"/Users/mi-bradorego/Development/bradorego/layouts/partials/categories.html",
+		"/Users/mi-bradorego/Development/bradorego/public/2016-04-back-to-static/index.html",
+		"/Users/mi-bradorego/Development/bradorego/content/post/back-to-static.md",
+		"/Users/mi-bradorego/Development/bradorego/content/post/new-site.md",
+		"/Users/mi-bradorego/Development/bradorego/.gitignore",
+		"/Users/mi-bradorego/Development/bradorego/content/resume.md",
+		"/Users/mi-bradorego/Development/bradorego/layouts/partials/pagination.html",
+		"/Users/mi-bradorego/Development/bradorego/content/post/transparency-of-offline.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/post/open-letter-okcupid.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/post/progressive-enhancement-phonegap.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/post/new-site.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/post/foursquare-heatmap.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/sidebar.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/post/importance-of-flow.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/post/note-taking.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/posted-on-in.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/tags.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/post/content.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/post/ditw-stovetop.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/archetypes/post.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/post/single.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/related-posts.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/static/js/clean-blog.js",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/page-header.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/static/less/simple-sidebar.less",
+		"/Users/mi-bradorego/Development/HugoBasicExample/static/less/mixins.less",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/header.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/menu-toggle.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/config.json",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/scrollUp.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/static/less/variables.less",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/footer.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/_default/archive.html",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/post/test2.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/resume.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/static/css/bootstrap.min.css",
+		"/Users/mi-bradorego/Development/HugoBasicExample/content/about.md",
+		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/_default/single.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"-*/themes/*",
+			"",
+			"/Users/mi-bradorego/Development/mobileigniter/gsi-edge/",
+			"/Users/mi-bradorego/Development/mobileigniter/gsi-edge/client/js",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"EatStreet",
+			"Thinking",
+			"thinking",
+			"client",
+			"Client",
+			";\n",
+			"sh",
+			"fs",
+			"path(",
+			"path",
+			"runSe",
+			"$timeout",
+			"authUser",
+			"config",
+			"console.log",
+			"console.warn",
+			"console.log",
+			"trans",
+			"exerciseName",
+			"resourceId",
+			"$q.all",
+			"getVideo",
+			"refit",
+			"addWorkout",
+			"transaction",
+			"getprofileRef",
+			"ref.child",
+			"console.log",
+			"nTotalDiff",
+			"refreshTokens",
+			".set",
+			"ref.",
+			"console.log",
+			"$localStorage",
+			"youTube",
+			"facebook",
+			"bodyParser",
+			"},\n",
+			"addWorkout",
+			"completedSession",
+			"client",
+			"login",
+			"Login",
+			"templates/",
+			" target=\"_blank\"",
+			"###",
+			" target=\"_blank\"",
+			"&gt;",
+			"&lt;",
+			"header",
+			"paper",
+			".glyphicon",
+			"paper",
+			"tags",
+			"series",
+			"subheading",
+			".page-heading",
+			"flandersred",
+			"gingerpeach",
+			"doomtree",
+			"myturnmatt",
+			"foresmoked",
+			"unparam",
+			"console.log",
+			"deviceDetails",
+			"<<<<",
+			"app.dash",
+			"saveUser",
+			"home",
+			"ui-s",
+			"sitesList",
+			"hrefLeft",
+			"iswebview",
+			"buttonDisabled()",
+			"buttonDisabled(",
+			"callbackFired",
+			"buttondis",
+			"$ionicLoading.hide()",
+			"invalid access",
+			"$location",
+			"location",
+			"href",
+			"$location",
+			"ng-href",
+			"delete $localStorage.token",
+			"ng-href=",
+			"$stateChange",
+			"1 Day",
+			"$q",
+			"navigation.menu",
+			"navigation.back",
+			"mi-log-click",
+			"sitesList",
+			"refreshto",
+			"CrawlGuard",
+			"Okay",
+			"WiFi",
+			"}\n",
+			"var",
+			"1day",
+			"3hrs",
+			"expiry",
+			"item-balanced",
+			"package",
+			"interval",
+			"$ionicModal",
+			"$ionicMOdal",
+			"alert.siteId",
+			"wizardVM.getSite",
+			"0",
+			"_compiled",
+			"toggleLine",
+			"getSiteStatus",
+			"siteData.",
+			"getSiteData",
+			"$localStorage.user",
+			"formatCommandCenter",
+			"splash",
+			"$location.go",
+			"commandCenter",
+			"token.expires_in",
+			"token.expir",
+			"changed",
+			"del",
+			"vinylPaths",
+			"title-left",
+			"labeled-button-row",
+			"com"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"User",
+			"Status",
+			"status",
+			"home",
+			"Home",
+			"$interval",
+			"console.error",
+			"editExercises",
+			"diff",
+			"User",
+			"workout",
+			"addWorkout",
+			"completedSession",
+			"client",
+			"Client",
+			"views/",
+			"",
+			"#",
+			"",
+			">",
+			"<",
+			"categories",
+			"tags",
+			"hellomynameisjoe",
+			"flandersred",
+			"coffeebender",
+			"wholehog2015",
+			"onebuffalo",
+			"doomtree",
+			"myturnmatt",
+			"addDevice",
+			"saveToken",
+			"dashboard",
+			"balanced",
+			"site.siteId",
+			"scoreboard",
+			"second",
+			"minute",
+			"hour",
+			"day",
+			"Analytics",
+			"DeviceFactory"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "www/views/Home/home.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 829,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								242,
+								242
+							]
+						],
+						"settings":
+						{
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "www/views/Home/home.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 828,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								604,
+								604
+							]
+						],
+						"settings":
+						{
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "www/views/Home/status.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 588,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								104,
+								104
+							]
+						],
+						"settings":
+						{
+							"auto_name": "thinking.js",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "www/js/services/EatStreet.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								660,
+								660
+							]
+						],
+						"settings":
+						{
+							"auto_name": "EatStreet.js",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 17.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "www/js/services/User.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 346,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								144,
+								144
+							]
+						],
+						"settings":
+						{
+							"auto_name": "User.js",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "www/views/Home/status.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6,
+								6
+							]
+						],
+						"settings":
+						{
+							"auto_name": "thinking.html",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "www/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2392,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2295,
+								2295
+							]
+						],
+						"settings":
+						{
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 309.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "scss/ionic.app.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1538,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								805,
+								805
+							]
+						],
+						"settings":
+						{
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 103.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "feedme.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"index.ht",
+				"www/index.html"
+			],
+			[
+				"index",
+				"www/index.html"
+			],
+			[
+				"index.html",
+				"www/index.html"
+			],
+			[
+				"app.js",
+				"www/js/app.js"
+			],
+			[
+				"details.s",
+				"scss/Client/details.scss"
+			],
+			[
+				"list.scs",
+				"scss/Client/list.scss"
+			],
+			[
+				"server",
+				"server.js"
+			],
+			[
+				"client.client.js",
+				"www/js/services/Client.client.js"
+			],
+			[
+				"editex",
+				"www/views/Workout/editExercises.Workout.js"
+			],
+			[
+				"client.client",
+				"www/js/services/Client.client.js"
+			],
+			[
+				"client.c",
+				"platforms/ios/build/emulator/Revu Fitness.app/www/views/Client/client.Client.js"
+			],
+			[
+				"ionic.",
+				"scss/ionic.app.scss"
+			],
+			[
+				"editexer",
+				"scss/Workout/editExercises.scss"
+			],
+			[
+				"ionicapp",
+				"scss/ionic.app.scss"
+			],
+			[
+				"list.html",
+				"www/views/Client/list.Client.html"
+			],
+			[
+				"bower.json",
+				"bower.json"
+			],
+			[
+				"all.js",
+				"www/js/-compiled/all.js"
+			],
+			[
+				"login.html",
+				"www/views/Login/login.User.html"
+			],
+			[
+				"app.",
+				"www/js/app.js"
+			],
+			[
+				"login.user",
+				"www/views/Login/Login.User.js"
+			],
+			[
+				"config.xml",
+				"config.xml"
+			],
+			[
+				".gitig",
+				".gitignore"
+			],
+			[
+				"login.user.j",
+				"www/views/Login/Login.User.js"
+			],
+			[
+				"server.js",
+				"server.js"
+			],
+			[
+				"package",
+				"package.json"
+			],
+			[
+				"config",
+				"config.json"
+			],
+			[
+				"gitig",
+				".gitignore"
+			],
+			[
+				"new-",
+				"content/post/new-site.md"
+			],
+			[
+				"header.ht",
+				"layouts/partials/header.html"
+			],
+			[
+				"test2",
+				"content/post/test2.md"
+			],
+			[
+				"config.json",
+				"config.json"
+			],
+			[
+				"gulpfile",
+				"gulpfile.js"
+			],
+			[
+				"header",
+				"layouts/partials/header.html"
+			],
+			[
+				"mysites",
+				"www/js/Services/MySites.js"
+			],
+			[
+				"menu",
+				"www/templates/menu.html"
+			],
+			[
+				"details.sites.",
+				"www/views/Sites/Details.Sites.js"
+			],
+			[
+				"details",
+				"www/views/Sites/Details.html"
+			],
+			[
+				"menu.",
+				"www/templates/menu.html"
+			],
+			[
+				"details.ht",
+				"www/views/Sites/Details.html"
+			],
+			[
+				"charts.sites",
+				"www/js/Services/Charts.Sites.js"
+			],
+			[
+				"details.",
+				"www/views/Sites/Details.Sites.js"
+			],
+			[
+				"dashboardl",
+				"www/views/Home/Dashboard.html"
+			],
+			[
+				"settings.ht",
+				"www/views/Settings/Settings.html"
+			],
+			[
+				"dashboard",
+				"www/views/Home/Dashboard.Home.js"
+			],
+			[
+				"packae",
+				"package.json"
+			],
+			[
+				"config.x",
+				"config.xml"
+			],
+			[
+				"settings.",
+				"www/views/Settings/Settings.html"
+			],
+			[
+				"charts.js",
+				"www/js/Services/Charts.Sites.js"
+			],
+			[
+				"ionic.app",
+				"scss/ionic.app.scss"
+			],
+			[
+				"history.s",
+				"www/views/Sites/History.sites.js"
+			],
+			[
+				"history.sites",
+				"www/views/Sites/History.sites.js"
+			],
+			[
+				"charts.",
+				"www/js/Services/Charts.Sites.js"
+			],
+			[
+				"readme",
+				"README.md"
+			],
+			[
+				".git",
+				".gitignore"
+			],
+			[
+				"config.",
+				"config.xml"
+			],
+			[
+				"dashbo",
+				"scss/home/dashboard.scss"
+			],
+			[
+				"dashboard.s",
+				"scss/home/dashboard.scss"
+			],
+			[
+				"alerts.sites",
+				"www/js/Services/Alerts.sites.js"
+			],
+			[
+				"menu.ht",
+				"www/templates/menu.html"
+			],
+			[
+				"loginu",
+				"www/views/Login/Login.user.js"
+			],
+			[
+				"signup.h",
+				"www/views/Signup/Signup.html"
+			],
+			[
+				"login",
+				"www/views/Login/Login.html"
+			],
+			[
+				"watch",
+				"gulp-tasks/watch-build.js"
+			],
+			[
+				"signup",
+				"www/views/Signup/Signup.user.js"
+			],
+			[
+				"list.sites.js",
+				"www/views/Sites/List.sites.js"
+			],
+			[
+				"edit-",
+				"www/js/directives/edit-site-modal/edit-site-modal.Sites.js"
+			],
+			[
+				".giti",
+				".gitignore"
+			],
+			[
+				"dashboard.h",
+				"www/views/Home/Dashboard.Home.js"
+			],
+			[
+				"mysites.js",
+				"www/js/Services/MySites.js"
+			],
+			[
+				"edit-sitel",
+				"www/js/directives/edit-site-modal/edit-site-modal.Sites.js"
+			],
+			[
+				"mysites.",
+				"www/js/Services/MySites.js"
+			],
+			[
+				"logi",
+				"www/views/Login/Login.html"
+			],
+			[
+				"ionic.s",
+				"scss/ionic.app.scss"
+			],
+			[
+				"watch-",
+				"gulp-tasks/watch-build.js"
+			],
+			[
+				"gulp",
+				"gulpfile.js"
+			],
+			[
+				"app.module",
+				"www/js/modules/app.module.js"
+			],
+			[
+				"singlew",
+				"www/js/services/singlewire.js"
+			],
+			[
+				"logclic",
+				"www/js/directives/logClick.js"
+			],
+			[
+				"singlewire.j",
+				"www/js/services/singlewire.js"
+			],
+			[
+				"view.alerts",
+				"www/views/Alerts/View.alerts.js"
+			],
+			[
+				"feedback.",
+				"www/views/Feedback/Feedback.settings.js"
+			],
+			[
+				"help.set",
+				"www/views/Help/Help.settings.js"
+			],
+			[
+				"locations.u",
+				"www/views/Locations/Locations.user.js"
+			],
+			[
+				"view.reg",
+				"www/views/Registration/view.registration.js"
+			],
+			[
+				"view.registrat",
+				"www/views/Registration/view.registration.js"
+			],
+			[
+				"cache.js",
+				"www/js/services/cache.js"
+			],
+			[
+				"registrat",
+				"www/js/modules/registration.module.js"
+			],
+			[
+				"openstore",
+				"www/js/directives/openStore.js"
+			],
+			[
+				"appmodule",
+				"www/js/modules/app.module.js"
+			],
+			[
+				"termsand",
+				"www/js/directives/termsAndConditions.js"
+			],
+			[
+				"userdevicelist",
+				"client/js/controllers/user/devicesList.ctrl.js"
+			],
+			[
+				"directives.",
+				"client/theme/js/directives.js"
+			],
+			[
+				"devicef",
+				"client/js/services/DeviceFactory.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "quant",
+		"selected_items":
+		[
+			[
+				"quant",
+				"~/Development/quantified-self/quantified-self.sublime-project"
+			],
+			[
+				"",
+				"~/sublime-projects/beerbatterbreakfast.sublime-project"
+			],
+			[
+				"ther",
+				"~/sublime-projects/thermastor.sublime-project"
+			],
+			[
+				"seed",
+				"~/.sublime-projects/mi-seed.sublime-project"
+			],
+			[
+				"w",
+				"~/whyhigh.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 323.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
