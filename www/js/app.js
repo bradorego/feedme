@@ -10,7 +10,25 @@
     '$ionicPlatform',
     '$rootScope',
     '$state',
-    function ($ionicPlatform, $rootScope, $state) {
+    'User',
+    '$ionicLoading',
+    '$http',
+    '$timeout',
+    function ($ionicPlatform, $rootScope, $state, User, $ionicLoading, $http, $timeout) {
+      var stateTimeout = {};
+      User.getProfile()
+        .then(function (data) {
+          if (!data.id) {
+            return $state.go('login');
+          }
+          $rootScope.profile = data;
+          // if (data.trainer) {
+          //   return $state.go('app.clientList');
+          // }
+          // return $state.go('app.client', {id: data.clientId});
+        }, function () { ///err) {
+          return $state.go('login');
+        });
       $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -23,9 +41,44 @@
           window.StatusBar.styleDefault();
         }
       });
+      //// FROM CLASSIC II
+      /*jslint unparam: true*/
+      $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+        console.error("stateChangeError", error);
+        $ionicLoading.hide();
+        $rootScope.cancelTimeout();
+      });
+      /*jslint unparam:false */
+      $rootScope.$on('$stateChangeStart', function () {
+        stateTimeout = $timeout(function () { //If transition takes longer than 30 seconds, timeout.
+          $ionicLoading.hide();
+          // $ionicPopup.alert({'title': 'Timed Out', 'template': 'Communication with the server timed out. Please check your connection and try again.'});
+          angular.forEach($http.pendingRequests, function (req) {
+            if (req.abort) {
+              req.abort.resolve();
+            }
+          });
+        }, 30000);
+      });
+      $rootScope.$on('$stateChangeSuccess', function () {
+        $rootScope.cancelTimeout();
+      });
+      $rootScope.cancelTimeout = function () {
+        $timeout.cancel(stateTimeout);
+      };
+      $rootScope.closeLoading = function () {
+        $ionicLoading.hide();
+        angular.forEach($http.pendingRequests, function (req) {
+          if (req.abort) {
+            req.abort.resolve();
+          }
+        });
+      };
       $rootScope.signOut = function () {
+        User.logOut();
         $state.go('login');
       };
+      //// END FROM
     }],
     appConfig = [
       '$stateProvider',
@@ -58,6 +111,6 @@
     .run(appRun)
     .config(appConfig)
     .controller('AppCtrl', appCtrl)
-    .value('FB_URL', 'https://feed-me-madison.firebaseio.com')
-    .value('ES_API_KEY', '');
+    .value('FB_ROOT', 'https://feed-me-madison.firebaseio.com')
+    .value('ES_API_KEY', '8e525b5783313f3f');
 }());

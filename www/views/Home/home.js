@@ -11,7 +11,6 @@
       vm.amount = 25;
 
       vm.feedMe = function () {
-        angular.noop();
         $ionicLoading.show();
         $timeout(function () {
           $ionicLoading.hide();

@@ -12,17 +12,37 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    <script src="lib/firebase/firebase.js"></script>
-    <script src="lib/angularfire/dist/angularfire.min.js"></script>
+    <!-- <script src="lib/firebase/firebase.js"></script>
+    <script src="lib/angularfire/dist/angularfire.min.js"></script> -->
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
     <script src="lib/ngstorage/ngStorage.min.js"></script>
-    <script src="lib/eatstreet.min.js"></script>
 
     <!-- your app's js -->
     <script src="js/-compiled/all.js"></script>
-
   </head>
 
   <body ng-app="feed-me">
     <ion-nav-view></ion-nav-view>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBdLlnTO0HdF5sk3iTexOz9oHBSkv3-Obw",
+        authDomain: "feed-me-madison.firebaseapp.com",
+        databaseURL: "https://feed-me-madison.firebaseio.com",
+        storageBucket: "feed-me-madison.appspot.com",
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      (function() {
+          var es = document.createElement('script'); es.type = 'text/javascript'; es.async = true;
+          es.src = ('https:' == document.location.protocol ? 'https://' : 'http://developers.') + 'eatstreet.com/api-js-sdk/js/sdk-remote.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(es, s);
+      })();
+    </script>
   </body>
 </html>
