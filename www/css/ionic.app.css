@@ -9817,6 +9817,9 @@ ion-nav-view,
     margin: 20px auto;
     line-height: 1.5; }
 
+.popup-container {
+  z-index: 20; }
+
 .button-box {
   font-size: 48px;
   font-weight: 900;

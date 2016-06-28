@@ -6,7 +6,33 @@
 // 'starter.controllers' is found in controllers.js
 (function () {
   'use strict';
-  var appRun = [
+  var appResolve = {
+    'isLoggedIn': [
+    'User',
+    '$state',
+    '$rootScope',
+    function (User, $state, $rootScope) {
+      User.getProfile()
+        .then(function (data) {
+          if (!data.$id) {
+            return $state.go('login');
+          }
+          $rootScope.profile = data;
+          // if (data.trainer) {
+          //   return $state.go('app.clientList');
+          // }
+          // return $state.go('app.client', {id: data.clientId});
+        }, function (err) { ///err) {
+          console.warn(err);
+          $state.go('login').then(function (data) {
+            console.log(data);
+          }, function (err) {
+            console.warn(err);
+          });
+        });
+    }]
+  },
+    appRun = [
     '$ionicPlatform',
     '$rootScope',
     '$state',
@@ -16,19 +42,6 @@
     '$timeout',
     function ($ionicPlatform, $rootScope, $state, User, $ionicLoading, $http, $timeout) {
       var stateTimeout = {};
-      User.getProfile()
-        .then(function (data) {
-          if (!data.id) {
-            return $state.go('login');
-          }
-          $rootScope.profile = data;
-          // if (data.trainer) {
-          //   return $state.go('app.clientList');
-          // }
-          // return $state.go('app.client', {id: data.clientId});
-        }, function () { ///err) {
-          return $state.go('login');
-        });
       $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -90,7 +103,8 @@
             url: '/app',
             abstract: true,
             templateUrl: 'views/menu.html',
-            controller: 'AppCtrl as appVM'
+            controller: 'AppCtrl as appVM',
+            resolve: appResolve
           });
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/login');
@@ -185,13 +199,13 @@
         };
       function createUser(profileRef, data) {
         var d = $q.defer();
-        profileRef.id = data.uid;
+        profileRef.$id = data.uid;
         profileRef.name = data.displayName;
         profileRef.email = data.email;
         profileRef.lastSignIn = +new Date();
         profileRef.$save()
           .then(function () { ///ref) {
-            $localStorage.profile = {id: profileRef.id};
+            $localStorage.profile = {id: profileRef.$id};
             return d.resolve(profileRef);
           }, function (err) {
             return d.reject(err);
@@ -205,7 +219,7 @@
             profileRef.lastSignIn = +new Date();
             profileRef.$save()
               .then(function () { ///ref) {
-                $localStorage.profile = {id: profileRef.id};
+                $localStorage.profile = {id: profileRef.$id};
                 profile = profileRef;
                 return d.resolve(profileRef);
               }, function (err) {
@@ -226,7 +240,7 @@
           .signInWithPopup(provider)
           .then(function (authData) {
             /// log in or create user
-            profile = getProfileRef(authData.user.uid);
+            profile = getProfileRef(authData.user.providerData[0].uid);
             profile.$loaded()
               .then(function (data) {
                 if (!data.id) { /// it's a new user
@@ -254,11 +268,11 @@
 
       User.getProfile = function () {
         var d = $q.defer();
-        if (!profile.id && ($localStorage.profile && !$localStorage.profile.id)) {
+        if (!profile.$id && (!$localStorage.profile || !$localStorage.profile.id)) {
           d.reject({message: "No profile found. Try logging in."});
           return d.promise;
         }
-        if (!profile.id && ($localStorage.profile && $localStorage.profile.id)) {
+        if (!profile.$id && ($localStorage.profile && $localStorage.profile.id)) {
           profile = getProfileRef($localStorage.profile.id);
           logIn(profile)
             .then(function (profileRef) {
@@ -293,17 +307,43 @@
   var homeCtrl = [
     '$ionicLoading',
     '$timeout',
-    function ($ionicLoading, $timeout) {
+    'EatStreet',
+    'User',
+    '$ionicPopup',
+    function ($ionicLoading, $timeout, EatStreet, User, $ionicPopup) {
       var vm = this;
 
       vm.people = 2;
       vm.amount = 25;
+      $ionicLoading.show();
+
+      $ionicPopup.alert({
+        title: "Test",
+        template: "Test!"
+      });
 
       vm.feedMe = function () {
         $ionicLoading.show();
-        $timeout(function () {
-          $ionicLoading.hide();
-        }, 5000);
+        EatStreet.placeOrder({
+          people: vm.people,
+          amount: vm.amount
+        })
+          .then(function (succ) {
+            $ionicLoading.hide();
+          }, function (err) {
+            $ionicLoading.hide();
+            if (err.status === 1001) { /// additional info needed
+              if (err.address) {
+
+              }
+              if (err.creditCard) {
+
+              }
+              if (err.phoneNumber) {
+
+              }
+            }
+          });
       };
     }],
     homeConfig = [

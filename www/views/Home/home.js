@@ -4,17 +4,43 @@
   var homeCtrl = [
     '$ionicLoading',
     '$timeout',
-    function ($ionicLoading, $timeout) {
+    'EatStreet',
+    'User',
+    '$ionicPopup',
+    function ($ionicLoading, $timeout, EatStreet, User, $ionicPopup) {
       var vm = this;
 
       vm.people = 2;
       vm.amount = 25;
+      $ionicLoading.show();
+
+      $ionicPopup.alert({
+        title: "Test",
+        template: "Test!"
+      });
 
       vm.feedMe = function () {
         $ionicLoading.show();
-        $timeout(function () {
-          $ionicLoading.hide();
-        }, 5000);
+        EatStreet.placeOrder({
+          people: vm.people,
+          amount: vm.amount
+        })
+          .then(function (succ) {
+            $ionicLoading.hide();
+          }, function (err) {
+            $ionicLoading.hide();
+            if (err.status === 1001) { /// additional info needed
+              if (err.address) {
+
+              }
+              if (err.creditCard) {
+
+              }
+              if (err.phoneNumber) {
+
+              }
+            }
+          });
       };
     }],
     homeConfig = [

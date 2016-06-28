@@ -15,13 +15,13 @@
         };
       function createUser(profileRef, data) {
         var d = $q.defer();
-        profileRef.id = data.uid;
+        profileRef.$id = data.uid;
         profileRef.name = data.displayName;
         profileRef.email = data.email;
         profileRef.lastSignIn = +new Date();
         profileRef.$save()
           .then(function () { ///ref) {
-            $localStorage.profile = {id: profileRef.id};
+            $localStorage.profile = {id: profileRef.$id};
             return d.resolve(profileRef);
           }, function (err) {
             return d.reject(err);
@@ -35,7 +35,7 @@
             profileRef.lastSignIn = +new Date();
             profileRef.$save()
               .then(function () { ///ref) {
-                $localStorage.profile = {id: profileRef.id};
+                $localStorage.profile = {id: profileRef.$id};
                 profile = profileRef;
                 return d.resolve(profileRef);
               }, function (err) {
@@ -56,7 +56,7 @@
           .signInWithPopup(provider)
           .then(function (authData) {
             /// log in or create user
-            profile = getProfileRef(authData.user.uid);
+            profile = getProfileRef(authData.user.providerData[0].uid);
             profile.$loaded()
               .then(function (data) {
                 if (!data.id) { /// it's a new user
@@ -84,11 +84,11 @@
 
       User.getProfile = function () {
         var d = $q.defer();
-        if (!profile.id && ($localStorage.profile && !$localStorage.profile.id)) {
+        if (!profile.$id && (!$localStorage.profile || !$localStorage.profile.id)) {
           d.reject({message: "No profile found. Try logging in."});
           return d.promise;
         }
-        if (!profile.id && ($localStorage.profile && $localStorage.profile.id)) {
+        if (!profile.$id && ($localStorage.profile && $localStorage.profile.id)) {
           profile = getProfileRef($localStorage.profile.id);
           logIn(profile)
             .then(function (profileRef) {

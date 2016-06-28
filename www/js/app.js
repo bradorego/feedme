@@ -6,7 +6,33 @@
 // 'starter.controllers' is found in controllers.js
 (function () {
   'use strict';
-  var appRun = [
+  var appResolve = {
+    'isLoggedIn': [
+    'User',
+    '$state',
+    '$rootScope',
+    function (User, $state, $rootScope) {
+      User.getProfile()
+        .then(function (data) {
+          if (!data.$id) {
+            return $state.go('login');
+          }
+          $rootScope.profile = data;
+          // if (data.trainer) {
+          //   return $state.go('app.clientList');
+          // }
+          // return $state.go('app.client', {id: data.clientId});
+        }, function (err) { ///err) {
+          console.warn(err);
+          $state.go('login').then(function (data) {
+            console.log(data);
+          }, function (err) {
+            console.warn(err);
+          });
+        });
+    }]
+  },
+    appRun = [
     '$ionicPlatform',
     '$rootScope',
     '$state',
@@ -16,19 +42,6 @@
     '$timeout',
     function ($ionicPlatform, $rootScope, $state, User, $ionicLoading, $http, $timeout) {
       var stateTimeout = {};
-      User.getProfile()
-        .then(function (data) {
-          if (!data.id) {
-            return $state.go('login');
-          }
-          $rootScope.profile = data;
-          // if (data.trainer) {
-          //   return $state.go('app.clientList');
-          // }
-          // return $state.go('app.client', {id: data.clientId});
-        }, function () { ///err) {
-          return $state.go('login');
-        });
       $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -90,7 +103,8 @@
             url: '/app',
             abstract: true,
             templateUrl: 'views/menu.html',
-            controller: 'AppCtrl as appVM'
+            controller: 'AppCtrl as appVM',
+            resolve: appResolve
           });
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/login');
