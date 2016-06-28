@@ -188,14 +188,13 @@
       function createUser(profileRef, data) {
         var d = $q.defer();
         profileRef.id = data.uid;
-        if (data.facebook) { /// we can pull their FB info
-          profileRef.name = data.facebook.displayName;
-          profileRef.email = data.facebook.email;
-        }
+        profileRef.name = data.displayName;
+        profileRef.email = data.email;
         profileRef.lastSignIn = +new Date();
         profileRef.$save()
           .then(function () { ///ref) {
-            $localStorage.profile = profileRef;
+            // delete profileRef.$$conf;
+            $localStorage.profile = {id: profileRef.id};
             return d.resolve(profileRef);
           }, function (err) {
             return d.reject(err);
@@ -209,7 +208,9 @@
             profileRef.lastSignIn = +new Date();
             profileRef.$save()
               .then(function () { ///ref) {
-                $localStorage.profile = profileRef;
+                // delete profileRef.$$conf;
+                console.log(profileRef);
+                $localStorage.profile = {id: profileRef.id};
                 profile = profileRef;
                 return d.resolve(profileRef);
               }, function (err) {
@@ -224,21 +225,26 @@
       User.authenticate = function () {
         var d = $q.defer();
 
-        auth.$authWithOAuthRedirect("facebook")
-          .then(function (authData) {
+        var provider = new firebase.auth.FacebookAuthProvider();
+        provider.addScope('email');
+        provider.addScope('public_profile');
+        firebase.auth()
+          .signInWithPopup(provider)
+          .then(function(authData) {
             /// log in or create user
-            profile = getProfileRef(authData.uid);
+            console.log(authData);
+            profile = getProfileRef(authData.user.uid);
             profile.$loaded()
               .then(function (data) {
                 if (!data.id) { /// it's a new user
-                  createUser(profile, authData)
+                  createUser(profile, authData.user.providerData[0])
                     .then(function (profileRef) {
                       return d.resolve(profileRef);
                     }, function (err) {
                       return d.reject(err);
                     });
                 } else {
-                  logIn(profile, authData)
+                  logIn(profile, authData.user)
                     .then(function (profileRef) {
                       return d.resolve(profileRef);
                     }, function (err) {
@@ -246,9 +252,8 @@
                     });
                 }
               });
-          }).catch(function (error) {
-            // console.log("Authentication failed:", error);
-            return d.reject(error);
+          }).catch(function (err) {
+            return d.reject(err);
           });
 
         return d.promise;
@@ -256,11 +261,11 @@
 
       User.getProfile = function () {
         var d = $q.defer();
-        if (!profile.id && !$localStorage.profile) {
+        if (!profile.id && ($localStorage.profile && !$localStorage.profile.id)) {
           d.reject({message: "No profile found. Try logging in."});
           return d.promise;
         }
-        if (!profile.id && $localStorage.profile) {
+        if (!profile.id && ($localStorage.profile && $localStorage.profile.id)) {
           profile = getProfileRef($localStorage.profile.id);
           logIn(profile)
             .then(function (profileRef) {
@@ -271,6 +276,10 @@
           return d.promise;
         }
         return $q.when(profile);
+      };
+      User.logOut = function () {
+        delete $localStorage.profile;
+        profile = {};
       };
 
       User.create = function (object) {
@@ -356,11 +365,17 @@
   'use strict';
   var loginCtrl = [
     '$state',
-    function ($state) {
+    'User',
+    function ($state, User) {
       var vm = this;
 
       vm.signIn = function () {
-        $state.go('app.home');
+        User.authenticate()
+          .then(function () {
+            $state.go('app.home');
+          }, function (err) {
+            window.alert(err);
+          });
       };
     }
   ],

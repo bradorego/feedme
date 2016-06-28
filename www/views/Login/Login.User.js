@@ -3,11 +3,17 @@
   'use strict';
   var loginCtrl = [
     '$state',
-    function ($state) {
+    'User',
+    function ($state, User) {
       var vm = this;
 
       vm.signIn = function () {
-        $state.go('app.home');
+        User.authenticate()
+          .then(function () {
+            $state.go('app.home');
+          }, function (err) {
+            window.alert(err);
+          });
       };
     }
   ],
