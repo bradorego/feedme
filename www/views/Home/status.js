@@ -5,7 +5,7 @@
     function () {
       var vm = this;
 
-
+      angular.noop(vm);
     }],
     statusConfig = [
       '$stateProvider',

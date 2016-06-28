@@ -169,18 +169,16 @@
 }());
 
 // User.js
+/*global firebase*/
 (function () {
   'use strict';
   var UserFact = [
-    '$firebaseAuth',
     '$firebaseObject',
-    'FB_ROOT',
     '$q',
     '$localStorage',
-    function ($firebaseAuth, $firebaseObject, FB_ROOT, $q, $localStorage) {
+    function ($firebaseObject, $q, $localStorage) {
       var User = {},
         ref = firebase.database().ref(),
-        auth = $firebaseAuth(),
         profile = {},
         getProfileRef = function (id) {
           return $firebaseObject(ref.child('users').child(id));
@@ -193,7 +191,6 @@
         profileRef.lastSignIn = +new Date();
         profileRef.$save()
           .then(function () { ///ref) {
-            // delete profileRef.$$conf;
             $localStorage.profile = {id: profileRef.id};
             return d.resolve(profileRef);
           }, function (err) {
@@ -208,8 +205,6 @@
             profileRef.lastSignIn = +new Date();
             profileRef.$save()
               .then(function () { ///ref) {
-                // delete profileRef.$$conf;
-                console.log(profileRef);
                 $localStorage.profile = {id: profileRef.id};
                 profile = profileRef;
                 return d.resolve(profileRef);
@@ -223,16 +218,14 @@
       }
 
       User.authenticate = function () {
-        var d = $q.defer();
-
-        var provider = new firebase.auth.FacebookAuthProvider();
+        var d = $q.defer(),
+          provider = new firebase.auth.FacebookAuthProvider();
         provider.addScope('email');
         provider.addScope('public_profile');
         firebase.auth()
           .signInWithPopup(provider)
-          .then(function(authData) {
+          .then(function (authData) {
             /// log in or create user
-            console.log(authData);
             profile = getProfileRef(authData.user.uid);
             profile.$loaded()
               .then(function (data) {
@@ -244,7 +237,7 @@
                       return d.reject(err);
                     });
                 } else {
-                  logIn(profile, authData.user)
+                  logIn(profile, authData.user.providerData[0])
                     .then(function (profileRef) {
                       return d.resolve(profileRef);
                     }, function (err) {
@@ -283,7 +276,7 @@
       };
 
       User.create = function (object) {
-        angular.noop();
+        angular.noop(object);
       };
 
       return User;
@@ -339,7 +332,7 @@
     function () {
       var vm = this;
 
-
+      angular.noop(vm);
     }],
     statusConfig = [
       '$stateProvider',
