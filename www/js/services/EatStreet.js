@@ -42,7 +42,6 @@
               /// ruh roh
               return d.reject(err);
             });
-          console.log(newUser);
         });
         return d.promise;
       };
@@ -75,13 +74,41 @@
         return d.promise;
       };
 
+      /// obj.streetAddress, obj.method
+      EatStreet.searchRestaurants = function (obj) {
+        var d = $q.defer();
+        ESApi.searchRestaurants({
+          'street-address': obj.streetAddress,
+          'method': obj.method
+        }, function (rest) {
+          if (rest.error) {
+            return d.reject(rest);
+          }
+          return d.resolve(rest);
+        });
+        return d.promise;
+      };
+      EatStreet.getMenu = function (restaurant) {
+        var d = $q.defer();
+        ESApi.getRestaurantMenu({
+          apiKey: restaurant.apiKey
+        }, function(menuCategories) {
+          if (menuCategories.error) {
+            return d.reject(menuCategories);
+          }
+          console.log(menuCategories);
+          return d.resolve(menuCategories);
+        });
+        return d.promise;
+      };
+
       /// obj.people, obj.amount
-      EatStreet.placeOrder = function (obj) {
+      EatStreet.feedMe = function (obj) {
         var d = $q.defer(),
-          missing = {
-            address: false,
-            phone: false,
-            card: false
+          missing = {},
+          handleErr = function (err) {
+            console.warn(err);
+            return d.reject(err);
           },
           goodToGo = true;
         User.getProfile()
@@ -103,14 +130,28 @@
               if (!initialized) {
                 EatStreet.init();
               }
-              angular.noop(obj);
+              ////TODO: use search parameter in conjunction with user preferences/toggles
+              EatStreet.searchRestaurants({
+                'streetAddress': profile.address.streetAddress + " " + profile.address.city + ", " + profile.address.state,
+                'method': 'delivery'
+              }).then(function (restaurants) {
+                var result = restaurants.restaurants.filter(function (item) {
+                    return (item.minWaitTime <= 45) && (item.deliveryPrice <= 3) && (item.deliveryMin <= 10); /// fuck that noise
+                  }),
+                  luckyRestaurant = {};
+                luckyRestaurant = result[Math.floor(Math.random() * result.length)];
+                console.log(luckyRestaurant);
+                EatStreet.getMenu(luckyRestaurant)
+                  .then(function (menu) {
+
+                    d.resolve(menu);
+                  }, handleErr);
+              }, handleErr);
             } else {
               missing.status = 1001;
               return d.reject(missing);
             }
-          }, function (err) {
-            return d.reject(err);
-          });
+          }, handleErr);
 
         return d.promise;
       };

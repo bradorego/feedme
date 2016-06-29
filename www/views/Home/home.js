@@ -11,12 +11,12 @@
       vm.amount = 25;
       vm.feedMe = function () {
         $ionicLoading.show();
-        EatStreet.placeOrder({
+        EatStreet.feedMe({
           people: vm.people,
           amount: vm.amount
         })
           .then(function (succ) {
-            angular.noop(succ);
+            console.log(succ);
             $ionicLoading.hide();
           }, function (err) {
             $ionicLoading.hide();
