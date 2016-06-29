@@ -18,10 +18,7 @@
             return $state.go('login');
           }
           $rootScope.profile = data;
-          // if (data.trainer) {
-          //   return $state.go('app.clientList');
-          // }
-          // return $state.go('app.client', {id: data.clientId});
+          return data;
         }, function (err) { ///err) {
           console.warn(err);
           $state.go('login').then(function (data) {
@@ -121,7 +118,7 @@
         //});
       }];
   angular.module('User', []);
-  angular.module('feed-me', ['ionic', 'User', 'ngStorage', 'firebase'])
+  angular.module('feed-me', ['ionic', 'ngAutocomplete', 'User', 'ngStorage', 'firebase'])
     .run(appRun)
     .config(appConfig)
     .controller('AppCtrl', appCtrl)

@@ -18,10 +18,7 @@
             return $state.go('login');
           }
           $rootScope.profile = data;
-          // if (data.trainer) {
-          //   return $state.go('app.clientList');
-          // }
-          // return $state.go('app.client', {id: data.clientId});
+          return data;
         }, function (err) { ///err) {
           console.warn(err);
           $state.go('login').then(function (data) {
@@ -121,7 +118,7 @@
         //});
       }];
   angular.module('User', []);
-  angular.module('feed-me', ['ionic', 'User', 'ngStorage', 'firebase'])
+  angular.module('feed-me', ['ionic', 'ngAutocomplete', 'User', 'ngStorage', 'firebase'])
     .run(appRun)
     .config(appConfig)
     .controller('AppCtrl', appCtrl)
@@ -167,6 +164,43 @@
             });
           console.log(newUser);
         });
+        return d.promise;
+      };
+
+      /// obj.people, obj.amount
+      EatStreet.placeOrder = function (obj) {
+        var d = $q.defer(),
+          missing = {
+            address: false,
+            phone: false,
+            card: false
+          },
+          goodToGo = true;
+
+        User.getProfile()
+          .then(function (profile) {
+            if (!profile.address) {
+              missing.address = true;
+              goodToGo = false;
+            }
+            if (!profile.phone) {
+              missing.phone = true;
+              goodToGo = false;
+            }
+            if (!profile.card) {
+              missing.card = true;
+              goodToGo = false;
+            }
+            if (goodToGo) { /// have all the info we need - onward!
+              /// do algorithm stuff here
+            } else {
+              missing.status = 1001;
+              return d.reject(missing);
+            }
+          }, function (err) {
+            return d.reject(err);
+          });
+
         return d.promise;
       };
 
@@ -310,18 +344,11 @@
     'EatStreet',
     'User',
     '$ionicPopup',
-    function ($ionicLoading, $timeout, EatStreet, User, $ionicPopup) {
+    '$scope',
+    function ($ionicLoading, $timeout, EatStreet, User, $ionicPopup, $scope) {
       var vm = this;
-
       vm.people = 2;
       vm.amount = 25;
-      $ionicLoading.show();
-
-      $ionicPopup.alert({
-        title: "Test",
-        template: "Test!"
-      });
-
       vm.feedMe = function () {
         $ionicLoading.show();
         EatStreet.placeOrder({
@@ -333,15 +360,22 @@
           }, function (err) {
             $ionicLoading.hide();
             if (err.status === 1001) { /// additional info needed
+              var templateString = "<p>We need more information from you before we can Feed You:</p>";
               if (err.address) {
-
+                templateString += "<li>Delivery Address</li>";
               }
-              if (err.creditCard) {
-
+              if (err.card) {
+                templateString += "<li>Payment Method</li>";
               }
-              if (err.phoneNumber) {
-
+              if (err.phone) {
+                templateString += "<li>Phone Number</li>";
               }
+              templateString += "<p class='margin-top'>Please visit <a ui-sref='app.settings'>Settings</a> to fix this issue. Thanks!</p>";
+              $ionicPopup.alert({
+                title: "Missing Information",
+                template: templateString,
+                okType: 'button-balanced'
+              });
             }
           });
       };

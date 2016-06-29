@@ -9803,6 +9803,9 @@ ion-nav-view,
   .loading-container .loading img {
     border-radius: 50%; }
 
+.margin-top {
+  margin-top: 10px; }
+
 .facebook {
   color: white;
   background: #3b5998 !important; }
@@ -9816,6 +9819,9 @@ ion-nav-view,
   .login .slider-slide h1, .login .slider-slide h2, .login .slider-slide h3, .login .slider-slide h4 {
     margin: 20px auto;
     line-height: 1.5; }
+
+.login img {
+  width: 100%; }
 
 .popup-container {
   z-index: 20; }
