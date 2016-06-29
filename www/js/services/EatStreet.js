@@ -7,25 +7,33 @@
     '$q',
     'User',
     function (ES_API_KEY, $q, User) {
-      var EatStreet = {};
+      var EatStreet = {},
+        initialized = false;
 
       EatStreet.init = function () {
         ESApi.init(ES_API_KEY);
+        initialized = true;
       };
-
-      EatStreet.createUser = function (obj) {
-        var user = {
-          'email': obj.email,
-          'password': Math.random().toString(36).substr(-12),
-          'firstName': obj.firstName,
-          'lastName': obj.lastName,
-          'phone': obj.phoneNumber
-        },
+      EatStreet.createUser = function (profile, phoneNumber) {
+        var nameChunks = profile.name.split(" "),
+          user = {
+            'email': profile.email,
+            'password': Math.random().toString(36).substr(-12),
+            'firstName': nameChunks.shift(),
+            'lastName': nameChunks.pop(),
+            'phone': phoneNumber
+          },
           d = $q.defer();
+        if (!initialized) {
+          EatStreet.init();
+        }
         ESApi.registerUser(user, function (newUser) {
+          if (newUser.error) {
+            return d.reject(newUser);
+          }
           User.update({
             phone: user.phone,
-            password: user.password,
+            es_password: user.password,
             apiKey: newUser.apiKey
           })
             .then(function () { ///resp) {
@@ -39,6 +47,34 @@
         return d.promise;
       };
 
+      /// obj.user, obj.address, obj.city, obj.state, obj.zip
+      EatStreet.addAddress = function (obj) {
+        var d = $q.defer();
+        if (!initialized) {
+          EatStreet.init();
+        }
+        ESApi.addAddress({
+          'apiKey': obj.user.apiKey,
+          'streetAddress': obj.address,
+          'city': obj.city,
+          'state': obj.state,
+          'zip': obj.zip
+        }, function (address) {
+          if (address.error) {
+            return d.reject(address);
+          }
+          User.update({
+            address: address
+          })
+            .then(function (user) {
+              return d.resolve(user);
+            }, function (err) {
+              return d.reject(err);
+            })
+        });
+        return d.promise;
+      };
+
       /// obj.people, obj.amount
       EatStreet.placeOrder = function (obj) {
         var d = $q.defer(),
@@ -48,7 +84,6 @@
             card: false
           },
           goodToGo = true;
-
         User.getProfile()
           .then(function (profile) {
             if (!profile.address) {
@@ -65,6 +100,10 @@
             }
             if (goodToGo) { /// have all the info we need - onward!
               /// do algorithm stuff here
+              if (!initialized) {
+                EatStreet.init();
+              }
+              angular.noop(obj);
             } else {
               missing.status = 1001;
               return d.reject(missing);
@@ -77,6 +116,9 @@
       };
 
       EatStreet.addCreditCard = function () {
+        if (!initialized) {
+          EatStreet.init();
+        }
         angular.noop();
       };
 

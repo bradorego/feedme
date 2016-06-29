@@ -3,12 +3,9 @@
   'use strict';
   var homeCtrl = [
     '$ionicLoading',
-    '$timeout',
     'EatStreet',
-    'User',
     '$ionicPopup',
-    '$scope',
-    function ($ionicLoading, $timeout, EatStreet, User, $ionicPopup, $scope) {
+    function ($ionicLoading, EatStreet, $ionicPopup) {
       var vm = this;
       vm.people = 2;
       vm.amount = 25;
@@ -19,6 +16,7 @@
           amount: vm.amount
         })
           .then(function (succ) {
+            angular.noop(succ);
             $ionicLoading.hide();
           }, function (err) {
             $ionicLoading.hide();
@@ -38,6 +36,11 @@
                 title: "Missing Information",
                 template: templateString,
                 okType: 'button-balanced'
+              });
+            } else {
+              $ionicPopup.alert({
+                title: "An Unknown Error Occurred",
+                template: "Whoops! Sorry about that. Here's some debug info in case it's helpful: " + JSON.stringify(err)
               });
             }
           });

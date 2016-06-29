@@ -45,6 +45,22 @@ ion-nav-view,
 .margin-top {
   margin-top: 10px;
 }
+#onboarding {
+  .bar-subheader {
+    line-height: 1;
+  }
+  .bar-subfooter {
+    .button-block {
+      margin-top: 0;
+    }
+  }
+}
+
+#addAddress {
+  img.map {
+    width: 100%;
+  }
+}
 
 .facebook {
   color: white;

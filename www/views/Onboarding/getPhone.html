@@ -1,0 +1,22 @@
+<ion-view view-title="Phone Number" cache-view="false" hide-back-button="true">
+  <ion-nav-buttons side="right">
+    <button ng-click="vm.skip()" class="button-clear">Skip</button>
+  </ion-nav-buttons>
+  <ion-content class="padding text-center has-subheader">
+    <h4>Please enter your phone number:</h4>
+    <div class="row">
+      <label class="item item-input col">
+        <input type="tel" maxlength="3" ng-model="vm.areaCode" ng-change="vm.validate()"/>
+      </label>
+      <label class="item item-input col">
+        <input type="tel" maxlength="3" ng-model="vm.partOne" ng-change="vm.validate()"/>
+      </label>
+      <label class="item item-input col">
+        <input type="tel" maxlength="4" ng-model="vm.partTwo" ng-change="vm.validate()"/>
+      </label>
+    </div>
+  </ion-content>
+  <div class="bar bar-subfooter stacked-footer">
+    <button class="button button-block icon-right button-balanced" ng-disabled="vm.disabled" ng-click="vm.continue()">Continue</button>
+  </div>
+</ion-view>

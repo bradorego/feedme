@@ -1,0 +1,14 @@
+<ion-view view-title="Credit Card" cache-view="false"hide-back-button="true">
+  <ion-nav-buttons side="right">
+    <button ng-click="vm.skip()">Skip</button>
+  </ion-nav-buttons>
+  <ion-content class="padding text-center has-subheader">
+    <h4>Where should food be delivered?</h4>
+    <label class="item item-input">
+      <input type="text" ng-model="vm.areaCode" ng-change="vm.validate()"/>
+    </label>
+  </ion-content>
+  <div class="bar bar-subfooter stacked-footer">
+    <button class="button button-block icon-right button-balanced" ng-disabled="vm.disabled" ng-click="vm.continue()">Continue</button>
+  </div>
+</ion-view>

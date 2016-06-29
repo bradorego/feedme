@@ -1,0 +1,17 @@
+<ion-view cache-view="false" id="onboarding">
+  <div class="bar bar-subheader text-center">We need just a few more pieces of information to make your ordering experience seamless.</div>
+  <ion-nav-view name="onboarding"></ion-nav-view>
+  <div class="bar bar-footer" ng-if="!parentVM.stepsHidden">
+    <h1 class="title inline">
+        <i class="icon padding"
+        ng-class="{'ion-ios-circle-filled': parentVM.step >= 1,
+                   'ion-ios-circle-outline': parentVM.step < 1}"></i>
+        <i class="icon padding"
+        ng-class="{'ion-ios-circle-filled': parentVM.step >= 2,
+                   'ion-ios-circle-outline': parentVM.step < 2}"></i>
+        <i class="icon padding"
+        ng-class="{'ion-ios-circle-filled': parentVM.step >= 3,
+                   'ion-ios-circle-outline': parentVM.step < 3}"></i>
+    </h1>
+  </div>
+</ion-view>

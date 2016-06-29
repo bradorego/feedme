@@ -82,6 +82,19 @@
         return d.promise;
       };
 
+      User.update = function (obj) {
+        var d = $q.defer();
+        profile.$loaded()
+          .then(function () {
+            angular.extend(profile, obj);
+            profile.$save()
+              .then(function () {
+                return d.resolve(profile);
+              }, $q.reject);
+          }, $q.reject);
+        return d.promise;
+      };
+
       User.getProfile = function () {
         var d = $q.defer();
         if (!profile.$id && (!$localStorage.profile || !$localStorage.profile.id)) {
@@ -103,10 +116,6 @@
       User.logOut = function () {
         delete $localStorage.profile;
         profile = {};
-      };
-
-      User.create = function (object) {
-        angular.noop(object);
       };
 
       return User;

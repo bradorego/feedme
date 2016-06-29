@@ -9,8 +9,12 @@
 
       vm.signIn = function () {
         User.authenticate()
-          .then(function () {
-            $state.go('app.home');
+          .then(function (user) {
+            if (user.onboarded) {
+              $state.go('app.home');
+            } else {
+              $state.go('app.onboarding.phone');
+            }
           }, function (err) {
             window.alert(err);
           });
