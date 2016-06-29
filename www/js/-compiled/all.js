@@ -198,7 +198,7 @@
               return d.resolve(user);
             }, function (err) {
               return d.reject(err);
-            })
+            });
         });
         return d.promise;
       };
@@ -243,11 +243,34 @@
         return d.promise;
       };
 
-      EatStreet.addCreditCard = function () {
+      /// obj.user, obj.name, obj.address, obj.zip, obj.cardNumber, obj.cvv, obj.expMonth, obj.expYear
+      EatStreet.addCard = function (obj) {
+        var d = $q.defer();
         if (!initialized) {
           EatStreet.init();
         }
-        angular.noop();
+        ESApi.addCard({
+          'apiKey': obj.user.apiKey,
+          'cardholderName': obj.name,
+          'cardholderStreetAddress': obj.address,
+          'cardholderZip': obj.zip,
+          'cardNumber': obj.cardNumber,
+          'cvv': obj.cvv,
+          'expirationMonth': obj.expMonth,
+          'expirationYear': obj.expYear
+        }, function (card) {
+          if (card.error) {
+            return d.reject(card);
+          }
+          User.update({
+            card: card
+          }).then(function (user) {
+            return d.resolve(user);
+          }, function (err) {
+            return d.reject(err);
+          });
+        });
+        return d.promise;
       };
 
       return EatStreet;
@@ -433,6 +456,7 @@
             }
           });
       };
+      $ionicLoading.hide();
     }],
     homeConfig = [
       '$stateProvider',
@@ -568,6 +592,9 @@
         $state.go('app.onboarding.creditCard');
       };
       vm.continue = function () {
+        if (!vm.details) {
+          return false;
+        }
         var components = vm.details.address_components;
         $ionicLoading.show();
         User.getProfile()
@@ -610,16 +637,43 @@
   var creditCardCtrl = [
     '$state',
     '$scope',
-    function ($state, $scope) {
-      var vm = this;
+    '$ionicLoading',
+    'User',
+    'EatStreet',
+    function ($state, $scope, $ionicLoading, User, EatStreet) {
+      var vm = this,
+        handleErr = function (err) {
+          window.alert(err);
+          $ionicLoading.hide();
+        };
+      vm.monthList = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+      vm.yearList = ["16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36"];
       $scope.parentVM.step = 3;
-      vm.areaCode = '';
-      vm.partOne = '';
-      vm.partTwo = '';
-      vm.disabled = true;
       vm.skip = function () {
         $state.go('app.home');
       };
+      vm.continue = function () {
+        if (!vm.name || !vm.address || !vm.zip || !vm.cardNumber || !vm.cvv) {
+          return false;
+        }
+        $ionicLoading.show();
+        User.getProfile()
+          .then(function (user) {
+            EatStreet.addCard({
+              'user': user,
+              'name': vm.name,
+              'address': vm.address,
+              'zip': vm.zip,
+              'cardNumber': vm.cardNumber,
+              'cvv': vm.cvv,
+              'expMonth': vm.expMonth,
+              'expYear': vm.expYear
+            }).then(function () {
+              $state.go('app.home');
+            }, handleErr);
+          }, handleErr);
+      };
+      $ionicLoading.hide();
     }],
     creditCardConfig = ['$stateProvider',
       function ($stateProvider) {
@@ -673,6 +727,9 @@
       };
       vm.continue = function () {
         $ionicLoading.show();
+        if (vm.disabled) {
+          return false;
+        }
         User.getProfile()
           .then(function (user) {
             EatStreet.createUser(user, vm.areaCode + vm.partOne + vm.partTwo)

@@ -31,6 +31,9 @@
       };
       vm.continue = function () {
         $ionicLoading.show();
+        if (vm.disabled) {
+          return false;
+        }
         User.getProfile()
           .then(function (user) {
             EatStreet.createUser(user, vm.areaCode + vm.partOne + vm.partTwo)

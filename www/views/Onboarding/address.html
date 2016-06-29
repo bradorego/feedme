@@ -4,10 +4,13 @@
   </ion-nav-buttons>
   <ion-content class="padding text-center has-subheader">
     <h4>Where should food be delivered?</h4>
-    <label class="item item-input">
-      <input type="text" ng-autocomplete ng-model="vm.autocomplete" details="vm.details" options="{watchEnter: true}" />
-    </label>
-    {{vm.details.address_components}}
+    <form class="list list-inset" ng-submit="vm.continue()">
+      <div class="row">
+        <label class="item item-input col">
+          <input type="text" ng-autocomplete ng-model="vm.autocomplete" details="vm.details" options="{watchEnter: true}" />
+        </label>
+      </div>
+    </form>
     <img class="map" ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{vm.details.geometry.location.lat()}},{{vm.details.geometry.location.lng()}}&zoom=15&size=400x200&markers=color:'red'%7C{{vm.details.geometry.location.lat()}},{{vm.details.geometry.location.lng()}}">
     <img src="https://developers.google.com/places/documentation/images/powered-by-google-on-white.png" />
   </ion-content>

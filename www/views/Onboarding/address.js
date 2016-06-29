@@ -18,6 +18,9 @@
         $state.go('app.onboarding.creditCard');
       };
       vm.continue = function () {
+        if (!vm.details) {
+          return false;
+        }
         var components = vm.details.address_components;
         $ionicLoading.show();
         User.getProfile()

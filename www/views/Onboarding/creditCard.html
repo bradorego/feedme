@@ -1,12 +1,56 @@
-<ion-view view-title="Credit Card" cache-view="false"hide-back-button="true">
+<ion-view view-title="Credit Card" cache-view="false" hide-back-button="true">
   <ion-nav-buttons side="right">
-    <button ng-click="vm.skip()">Skip</button>
+    <button ng-click="vm.skip()" class="button-clear">Skip</button>
   </ion-nav-buttons>
   <ion-content class="padding text-center has-subheader">
-    <h4>Where should food be delivered?</h4>
-    <label class="item item-input">
-      <input type="text" ng-model="vm.areaCode" ng-change="vm.validate()"/>
-    </label>
+    <h4>Which credit/debit card should we charge?</h4>
+    <form class="list list-inset text-left" ng-submit="vm.continue()">
+      <div class="row">
+        <div class="col">
+          Cardholder Info
+        </div>
+      </div>
+      <div class="row">
+        <label class="item item-input col col-100">
+          <input type="text" ng-model="vm.name" placeholder="Name" />
+        </label>
+      </div>
+      <div class="row">
+        <label class="item item-input col col-75">
+          <input type="text" ng-model="vm.address" placeholder="Street Address" />
+        </label>
+        <label class="item item-input col col-25">
+          <input type="number" ng-model="vm.zip" placeholder="Zip" min="0" max="99999" />
+        </label>
+      </div>
+      <div class="row">
+        <div class="col">
+          Card Info
+        </div>
+      </div>
+      <div class="row">
+        <label class="item item-input col col-75">
+          <input type="number" ng-model="vm.cardNumber" placeholder="Card Number" min="0"/>
+        </label>
+        <label class="item item-input col col-25">
+          <input type="number" ng-model="vm.cvv" placeholder="CVV" min="0" max="999" />
+        </label>
+      </div>
+      <div class="row">
+        <div class="col">
+          Expiration
+        </div>
+      </div>
+      <div class="row">
+        <label class="item item-input item-select col col-50">
+          <span class="input-label">&nbsp;</span>
+          <select ng-model="vm.expMonth" ng-options="month for month in vm.monthList" ng-init="vm.expMonth = vm.monthList[0]"></select>
+        </label>
+        <label class="item item-input item-select col col-50">
+          <select ng-model="vm.expYear" ng-options="year for year in vm.yearList" ng-init="vm.expYear = vm.yearList[0]"></select>
+        </label>
+      </div>
+    </form>
   </ion-content>
   <div class="bar bar-subfooter stacked-footer">
     <button class="button button-block icon-right button-balanced" ng-disabled="vm.disabled" ng-click="vm.continue()">Continue</button>

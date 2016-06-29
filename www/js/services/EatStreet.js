@@ -70,7 +70,7 @@
               return d.resolve(user);
             }, function (err) {
               return d.reject(err);
-            })
+            });
         });
         return d.promise;
       };
@@ -115,11 +115,34 @@
         return d.promise;
       };
 
-      EatStreet.addCreditCard = function () {
+      /// obj.user, obj.name, obj.address, obj.zip, obj.cardNumber, obj.cvv, obj.expMonth, obj.expYear
+      EatStreet.addCard = function (obj) {
+        var d = $q.defer();
         if (!initialized) {
           EatStreet.init();
         }
-        angular.noop();
+        ESApi.addCard({
+          'apiKey': obj.user.apiKey,
+          'cardholderName': obj.name,
+          'cardholderStreetAddress': obj.address,
+          'cardholderZip': obj.zip,
+          'cardNumber': obj.cardNumber,
+          'cvv': obj.cvv,
+          'expirationMonth': obj.expMonth,
+          'expirationYear': obj.expYear
+        }, function (card) {
+          if (card.error) {
+            return d.reject(card);
+          }
+          User.update({
+            card: card
+          }).then(function (user) {
+            return d.resolve(user);
+          }, function (err) {
+            return d.reject(err);
+          });
+        });
+        return d.promise;
       };
 
       return EatStreet;

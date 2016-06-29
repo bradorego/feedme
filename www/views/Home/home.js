@@ -45,6 +45,7 @@
             }
           });
       };
+      $ionicLoading.hide();
     }],
     homeConfig = [
       '$stateProvider',
