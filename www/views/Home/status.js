@@ -1,12 +1,21 @@
 // status.js
 (function () {
   'use strict';
-  var statusCtrl = [
-    function () {
-      var vm = this;
-
-      angular.noop(vm);
-    }],
+  var statusResolve = {
+    'user': [
+      'User',
+      function(User) {
+        return User.getProfile();
+      }]
+    },
+    statusCtrl = [
+      'user',
+      function (user) {
+        var vm = this;
+        console.log(user);
+        vm.user = user;
+        angular.noop(vm);
+      }],
     statusConfig = [
       '$stateProvider',
       function ($stateProvider) {

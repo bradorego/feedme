@@ -9841,3 +9841,13 @@ ion-nav-view,
   padding: 40px;
   margin: 20px;
   line-height: 1.25; }
+
+i.infobutton {
+  background: #6FB43F;
+  border-radius: 100px;
+  color: white;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-size: 16px; }

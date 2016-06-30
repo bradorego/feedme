@@ -101,8 +101,65 @@
         });
         return d.promise;
       };
+      ///obj.user, obj.items, obj.restaurant
+      EatStreet.submitOrder = function (obj) {
+        var d = $q.defer(),
+          formattedItems = obj.items.map(function (item) { return {"apiKey": item.apiKey};});
+        var tempOrder = {
+          "apiKey": "7422332c294e951182e0cae4654d77350320b34b47176fee",
+          "items": [
+            {
+              "apiKey": "35191",
+              "comments": "Pile it high!",
+              "name": "8. Angel Chicken Wing (4)",
+              "basePrice": 6.95,
+              "totalPrice": 6.95,
+              "customizationChoices": []
+            }
+          ],
+          "method": "pickup",
+          "payment": "cash",
+          "tip": 0,
+          "restaurantApiKey": "90fd4587554469b1f15b4f2e73e761809f4b4bcca52eedca",
+          "comments": null,
+          "recipientApiKey": "485ca34bedf9153e7ecdb0c1c698d2cee41ee9406039e889",
+          "card": null,
+          "address": null,
+          "datePlaced": 1467322105
+        };
+        User.update({ /// hope this succeeds
+          currentOrder: tempOrder
+        });
+        d.resolve(tempOrder);
+        return d.promise;
 
-      /// obj.people, obj.amount
+        // ESApi.submitOrder({
+        //   'restaurantApiKey': obj.restaurant.apiKey,
+        //   'items': formattedItems,
+        //   'method': 'delivery',
+        //   'payment': 'card',
+        //   'card': obj.user.card,
+        //   'address': obj.user.address,
+        //   'recipient': obj.user.apiKey
+        // }, function (order) {
+        //   if (order.error) {
+        //     return d.reject(order);
+        //   }
+        //   User.update({ /// hope this succeeds
+        //     currentOrder: order
+        //   }, function () {
+
+        //   }, function (err) {
+        //     User.update({ /// retry it with just a flag?
+        //       currentOrder: true
+        //     });
+        //   });
+        //   return d.resolve(order);
+        // });
+        // return d.promise;
+      };
+
+      /// obj.amount
       EatStreet.feedMe = function (obj) {
         var d = $q.defer(),
           missing = {},
@@ -143,8 +200,78 @@
                 console.log(luckyRestaurant);
                 EatStreet.getMenu(luckyRestaurant)
                   .then(function (menu) {
-
-                    d.resolve(menu);
+                    var items = [],
+                      normalizedName = '',
+                      runningCost = 0, /// how much we've spent so far
+                      itemIndex = 0, /// holding onto randomly selected menu item
+                      actualPrice = 0, /// price after tax
+                      toOrder = [];
+                    menu.forEach(function (obj) {
+                      normalizedName = obj.name.toLowerCase();
+                      if ((normalizedName.indexOf('dessert') === -1) &&
+                          (normalizedName.indexOf('beverage') === -1) &&
+                          (normalizedName.indexOf('shake') === -1) &&
+                          (normalizedName.indexOf('drink') === -1) &&
+                          (normalizedName.indexOf('kid') === -1) &&
+                          (normalizedName.indexOf('sweet') === -1) &&
+                          (normalizedName.indexOf('side') === -1) &&
+                          (normalizedName.indexOf('extra') === -1) &&
+                          (normalizedName.indexOf('build') === -1)) { /// I hope this is enough
+                        items = items.concat(obj.items); // flatten all menu items to one list
+                      }
+                    });
+                    ///TODO: fix this (modularize, recall function, etc)
+                    if (!items.length) { // start over?
+                      return d.reject({message: "No valid items for this restaurant"});
+                    }
+                    for (runningCost = luckyRestaurant.deliveryPrice; runningCost < obj.amount;) {
+                      itemIndex = Math.floor(Math.random() * items.length);
+                      actualPrice = (items[itemIndex].basePrice * (1 + luckyRestaurant.taxRate));
+                      if ((runningCost + actualPrice) >= obj.amount) {
+                        if (toOrder.length === 0) {
+                          console.log("sadtrombone.com");
+                          continue; /// let's make sure there's at least one item....
+                        } else {
+                          break;
+                        }
+                      } else {  /// we can add it!
+                        toOrder.push(items[itemIndex]);
+                        items.splice(itemIndex, 1); /// no duplicates
+                        runningCost += actualPrice;
+                      }
+                    }
+                    console.log(runningCost, toOrder);
+                    EatStreet.submitOrder({
+                      user: profile,
+                      items: toOrder,
+                      restaurant: luckyRestaurant
+                    }).then(function (order) {
+                      /*
+                      {
+                        "apiKey": "7422332c294e951182e0cae4654d77350320b34b47176fee",
+                        "items": [
+                          {
+                            "apiKey": "35191",
+                            "comments": "Pile it high!",
+                            "name": "8. Angel Chicken Wing (4)",
+                            "basePrice": 6.95,
+                            "totalPrice": 6.95,
+                            "customizationChoices": []
+                          }
+                        ],
+                        "method": "pickup",
+                        "payment": "cash",
+                        "tip": 0,
+                        "restaurantApiKey": "90fd4587554469b1f15b4f2e73e761809f4b4bcca52eedca",
+                        "comments": null,
+                        "recipientApiKey": "485ca34bedf9153e7ecdb0c1c698d2cee41ee9406039e889",
+                        "card": null,
+                        "address": null,
+                        "datePlaced": 1467322105
+                      }
+                      */
+                      d.resolve(order);
+                    }, handleErr);
                   }, handleErr);
               }, handleErr);
             } else {
