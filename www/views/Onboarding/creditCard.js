@@ -36,6 +36,9 @@
               'expMonth': vm.expMonth,
               'expYear': vm.expYear
             }).then(function () {
+              User.update({
+                'onboarded': true
+              });
               $state.go('app.home');
             }, handleErr);
           }, handleErr);
