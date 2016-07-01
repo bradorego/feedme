@@ -24,7 +24,6 @@
           amount: parseInt(vm.amount, 10)
         })
           .then(function (succ) {
-            console.log(succ);
             $state.go('app.status');
             $ionicLoading.hide();
           }, function (err) {

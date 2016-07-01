@@ -21,11 +21,7 @@
             return data;
           }, function (err) { ///err) {
             console.warn(err);
-            $state.go('login').then(function (data) {
-              console.log(data);
-            }, function (err) {
-              console.warn(err);
-            });
+            $state.go('login');
           });
       }]
   },

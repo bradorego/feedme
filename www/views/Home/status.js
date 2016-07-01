@@ -13,7 +13,6 @@
       'EatStreet',
       function (user, EatStreet) {
         var vm = this;
-        console.log(user);
         vm.order = user.currentOrder;
         angular.noop(vm);
         EatStreet.getRestaurant(vm.order.restaurantApiKey)
