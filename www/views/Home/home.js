@@ -6,10 +6,12 @@
     'EatStreet',
     '$ionicPopup',
     '$state',
-    function ($ionicLoading, EatStreet, $ionicPopup, $state) {
+    'user',
+    function ($ionicLoading, EatStreet, $ionicPopup, $state, user) {
       var vm = this;
       vm.people = 2;
       vm.amount = 20;
+      vm.user = user;
       vm.budgetInfo = function () {
         $ionicPopup.alert({
           title: "Budget",
@@ -55,6 +57,14 @@
       };
       $ionicLoading.hide();
     }],
+    homeResolve = {
+      'user': [
+        'User',
+        function (User) {
+          return User.getProfile();
+        }
+      ]
+    },
     homeConfig = [
       '$stateProvider',
       function ($stateProvider) {
@@ -64,7 +74,8 @@
             views: {
               'menuContent': {
                 templateUrl: 'views/Home/home.html',
-                controller: 'HomeCtrl as vm'
+                controller: 'HomeCtrl as vm',
+                resolve: homeResolve
               }
             }
           });

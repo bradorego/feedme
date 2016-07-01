@@ -60,19 +60,21 @@
           .signInWithPopup(provider)
           .then(function (authData) {
             /// log in or create user
-            profile = getProfileRef(authData.user.providerData[0].uid);
-            profile.$loaded()
+            var thisProfile = getProfileRef(authData.user.providerData[0].uid);
+            thisProfile.$loaded()
               .then(function (data) {
-                if (!data.id) { /// it's a new user
+                if (!data.apiKey) { /// it's a new user
                   createUser(profile, authData.user.providerData[0])
                     .then(function (profileRef) {
+                      profile = profileRef;
                       return d.resolve(profileRef);
                     }, function (err) {
                       return d.reject(err);
                     });
                 } else {
-                  logIn(profile, authData.user.providerData[0])
+                  logIn(thisProfile.$id)
                     .then(function (profileRef) {
+                      profile = profileRef;
                       return d.resolve(profileRef);
                     }, function (err) {
                       return d.reject(err);

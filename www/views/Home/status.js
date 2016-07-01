@@ -61,7 +61,7 @@
       function ($stateProvider) {
         $stateProvider
           .state('app.status', {
-            url: '/status',
+            url: '/status/:id',
             views: {
               'menuContent': {
                 templateUrl: 'views/Home/status.html',

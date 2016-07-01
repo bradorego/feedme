@@ -21,11 +21,7 @@
             return data;
           }, function (err) { ///err) {
             console.warn(err);
-            $state.go('login').then(function (data) {
-              console.log(data);
-            }, function (err) {
-              console.warn(err);
-            });
+            $state.go('login');
           });
       }]
   },
@@ -139,8 +135,12 @@
         initialized = false;
 
       EatStreet.init = function () {
-        ESApi.init(ES_API_KEY);
-        initialized = true;
+        try {
+          ESApi.init(ES_API_KEY);
+          initialized = true;
+        } catch (err) {
+          console.error(err);
+        }
       };
       EatStreet.createUser = function (profile, phoneNumber) {
         var nameChunks = profile.name.split(" "),
@@ -155,22 +155,26 @@
         if (!initialized) {
           EatStreet.init();
         }
-        ESApi.registerUser(user, function (newUser) {
-          if (newUser.error) {
-            return d.reject(newUser);
-          }
-          User.update({
-            phone: user.phone,
-            es_password: user.password,
-            apiKey: newUser.apiKey
-          })
-            .then(function () { ///resp) {
-              return d.resolve(user);
-            }, function (err) {
-              /// ruh roh
-              return d.reject(err);
-            });
-        });
+        try {
+          ESApi.registerUser(user, function (newUser) {
+            if (newUser.error) {
+              return d.reject(newUser);
+            }
+            User.update({
+              phone: user.phone,
+              es_password: user.password,
+              apiKey: newUser.apiKey
+            })
+              .then(function () { ///resp) {
+                return d.resolve(user);
+              }, function (err) {
+                /// ruh roh
+                return d.reject(err);
+              });
+          });
+        } catch (err) {
+          d.reject(err);
+        }
         return d.promise;
       };
 
@@ -180,25 +184,29 @@
         if (!initialized) {
           EatStreet.init();
         }
-        ESApi.addAddress({
-          'apiKey': obj.user.apiKey,
-          'streetAddress': obj.address,
-          'city': obj.city,
-          'state': obj.state,
-          'zip': obj.zip
-        }, function (address) {
-          if (address.error) {
-            return d.reject(address);
-          }
-          User.update({
-            address: address
-          })
-            .then(function (user) {
-              return d.resolve(user);
-            }, function (err) {
-              return d.reject(err);
-            });
-        });
+        try {
+          ESApi.addAddress({
+            'apiKey': obj.user.apiKey,
+            'streetAddress': obj.address,
+            'city': obj.city,
+            'state': obj.state,
+            'zip': obj.zip
+          }, function (address) {
+            if (address.error) {
+              return d.reject(address);
+            }
+            User.update({
+              address: address
+            })
+              .then(function (user) {
+                return d.resolve(user);
+              }, function (err) {
+                return d.reject(err);
+              });
+          });
+        } catch (err) {
+          d.reject(err);
+        }
         return d.promise;
       };
 
@@ -207,41 +215,53 @@
         if (!initialized) {
           EatStreet.init();
         }
-        ESApi.getRestaurantDetails({
-          'apiKey': apiKey
-        }, function (restaurant) {
-          if (restaurant.error) {
-            return d.reject(restaurant);
-          }
-          return d.resolve(restaurant);
-        });
+        try {
+          ESApi.getRestaurantDetails({
+            'apiKey': apiKey
+          }, function (restaurant) {
+            if (restaurant.error) {
+              return d.reject(restaurant);
+            }
+            return d.resolve(restaurant);
+          });
+        } catch (err) {
+          d.reject(err);
+        }
         return d.promise;
       };
       /// obj.streetAddress, obj.method
       EatStreet.searchRestaurants = function (obj) {
         var d = $q.defer();
-        ESApi.searchRestaurants({
-          'street-address': obj.streetAddress,
-          'method': obj.method
-        }, function (rest) {
-          if (rest.error) {
-            return d.reject(rest);
-          }
-          return d.resolve(rest);
-        });
+        try {
+          ESApi.searchRestaurants({
+            'street-address': obj.streetAddress,
+            'method': obj.method
+          }, function (rest) {
+            if (rest.error) {
+              return d.reject(rest);
+            }
+            return d.resolve(rest);
+          });
+        } catch (err) {
+          d.reject(err);
+        }
         return d.promise;
       };
       EatStreet.getMenu = function (restaurant) {
         var d = $q.defer();
-        ESApi.getRestaurantMenu({
-          apiKey: restaurant.apiKey
-        }, function (menuCategories) {
-          if (menuCategories.error) {
-            return d.reject(menuCategories);
-          }
-          console.log(menuCategories);
-          return d.resolve(menuCategories);
-        });
+        try {
+          ESApi.getRestaurantMenu({
+            apiKey: restaurant.apiKey
+          }, function (menuCategories) {
+            if (menuCategories.error) {
+              return d.reject(menuCategories);
+            }
+            console.log(menuCategories);
+            return d.resolve(menuCategories);
+          });
+        } catch (err) {
+          d.reject(err);
+        }
         return d.promise;
       };
       ///obj.user, obj.items, obj.restaurant
@@ -277,30 +297,35 @@
         d.resolve(tempOrder);
         return d.promise;
 
-        // ESApi.submitOrder({
-        //   'restaurantApiKey': obj.restaurant.apiKey,
-        //   'items': formattedItems,
-        //   'method': 'delivery',
-        //   'payment': 'card',
-        //   'card': obj.user.card,
-        //   'address': obj.user.address,
-        //   'recipient': obj.user.apiKey
-        // }, function (order) {
-        //   if (order.error) {
-        //     return d.reject(order);
-        //   }
-        //   order.datePlaced *= 1000;
-        //   User.update({ /// hope this succeeds
-        //     currentOrder: order
-        //   }, function () {
+        // try {
+          // ESApi.submitOrder({
+          //   'restaurantApiKey': obj.restaurant.apiKey,
+          //   'items': formattedItems,
+          //   'method': 'delivery',
+          //   'payment': 'card',
+          //   'card': obj.user.card,
+          //   'address': obj.user.address,
+          //   'recipient': obj.user.apiKey
+          // }, function (order) {
+          //   if (order.error) {
+          //     return d.reject(order);
+          //   }
+          //   order.datePlaced *= 1000;
+          //   order.estimatedDelivery = order.datePlaced + 1800000; /// 30 minutes in ms
+          //   User.update({ /// hope this succeeds
+          //     currentOrder: order
+          //   }, function () {
 
-        //   }, function (err) {
-        //     User.update({ /// retry it with just a flag?
-        //       currentOrder: true
-        //     });
-        //   });
-        //   return d.resolve(order);
-        // });
+          //   }, function (err) {
+          //     User.update({ /// retry it with just a flag?
+          //       currentOrder: true
+          //     });
+          //   });
+          //   return d.resolve(order);
+          // });
+        // } catch (err) {
+        //   d.reject(err);
+        // }
         // return d.promise;
       };
       EatStreet.getOrderDetails = function (id) {
@@ -308,15 +333,19 @@
         if (!initialized) {
           EatStreet.init();
         }
-        ESApi.getOrder({
-          'apiKey': id
-        }, function (order) {
-          if (order.error) {
-            return d.reject(order);
-          }
-          order.datePlaced *= 1000;
-          return d.resolve(order);
-        });
+        try {
+          ESApi.getOrder({
+            'apiKey': id
+          }, function (order) {
+            if (order.error) {
+              return d.reject(order);
+            }
+            order.datePlaced *= 1000;
+            return d.resolve(order);
+          });
+        } catch (err) {
+          d.reject(err);
+        }
         return d.promise;
       };
       EatStreet.getOrderStatus = function (id) {
@@ -324,15 +353,19 @@
         if (!initialized) {
           EatStreet.init();
         }
-        ESApi.getOrderStatus({
-          'apiKey': id
-        }, function (status) {
-          if (status.error) {
-            return d.reject(status);
-          }
-          status.updated = new Date(status.updated);
-          return d.resolve(status);
-        });
+        try {
+          ESApi.getOrderStatus({
+            'apiKey': id
+          }, function (status) {
+            if (status.error) {
+              return d.reject(status);
+            }
+            status.updated = new Date(status.updated);
+            return d.resolve(status);
+          });
+        } catch (err) {
+          d.reject(err);
+        }
         return d.promise;
       };
       /// obj.amount
@@ -463,27 +496,31 @@
         if (!initialized) {
           EatStreet.init();
         }
-        ESApi.addCard({
-          'apiKey': obj.user.apiKey,
-          'cardholderName': obj.name,
-          'cardholderStreetAddress': obj.address,
-          'cardholderZip': obj.zip,
-          'cardNumber': obj.cardNumber,
-          'cvv': obj.cvv,
-          'expirationMonth': obj.expMonth,
-          'expirationYear': obj.expYear
-        }, function (card) {
-          if (card.error) {
-            return d.reject(card);
-          }
-          User.update({
-            card: card
-          }).then(function (user) {
-            return d.resolve(user);
-          }, function (err) {
-            return d.reject(err);
+        try {
+          ESApi.addCard({
+            'apiKey': obj.user.apiKey,
+            'cardholderName': obj.name,
+            'cardholderStreetAddress': obj.address,
+            'cardholderZip': obj.zip,
+            'cardNumber': obj.cardNumber,
+            'cvv': obj.cvv,
+            'expirationMonth': obj.expMonth,
+            'expirationYear': obj.expYear
+          }, function (card) {
+            if (card.error) {
+              return d.reject(card);
+            }
+            User.update({
+              card: card
+            }).then(function (user) {
+              return d.resolve(user);
+            }, function (err) {
+              return d.reject(err);
+            });
           });
-        });
+        } catch (err) {
+          d.reject(err);
+        }
         return d.promise;
       };
 
@@ -557,19 +594,21 @@
           .signInWithPopup(provider)
           .then(function (authData) {
             /// log in or create user
-            profile = getProfileRef(authData.user.providerData[0].uid);
-            profile.$loaded()
+            var thisProfile = getProfileRef(authData.user.providerData[0].uid);
+            thisProfile.$loaded()
               .then(function (data) {
-                if (!data.id) { /// it's a new user
+                if (!data.apiKey) { /// it's a new user
                   createUser(profile, authData.user.providerData[0])
                     .then(function (profileRef) {
+                      profile = profileRef;
                       return d.resolve(profileRef);
                     }, function (err) {
                       return d.reject(err);
                     });
                 } else {
-                  logIn(profile, authData.user.providerData[0])
+                  logIn(thisProfile.$id)
                     .then(function (profileRef) {
+                      profile = profileRef;
                       return d.resolve(profileRef);
                     }, function (err) {
                       return d.reject(err);
@@ -640,10 +679,12 @@
     'EatStreet',
     '$ionicPopup',
     '$state',
-    function ($ionicLoading, EatStreet, $ionicPopup, $state) {
+    'user',
+    function ($ionicLoading, EatStreet, $ionicPopup, $state, user) {
       var vm = this;
       vm.people = 2;
       vm.amount = 20;
+      vm.user = user;
       vm.budgetInfo = function () {
         $ionicPopup.alert({
           title: "Budget",
@@ -658,7 +699,6 @@
           amount: parseInt(vm.amount, 10)
         })
           .then(function (succ) {
-            console.log(succ);
             $state.go('app.status');
             $ionicLoading.hide();
           }, function (err) {
@@ -690,6 +730,14 @@
       };
       $ionicLoading.hide();
     }],
+    homeResolve = {
+      'user': [
+        'User',
+        function (User) {
+          return User.getProfile();
+        }
+      ]
+    },
     homeConfig = [
       '$stateProvider',
       function ($stateProvider) {
@@ -699,7 +747,8 @@
             views: {
               'menuContent': {
                 templateUrl: 'views/Home/home.html',
-                controller: 'HomeCtrl as vm'
+                controller: 'HomeCtrl as vm',
+                resolve: homeResolve
               }
             }
           });
@@ -724,7 +773,6 @@
       'EatStreet',
       function (user, EatStreet) {
         var vm = this;
-        console.log(user);
         vm.order = user.currentOrder;
         angular.noop(vm);
         EatStreet.getRestaurant(vm.order.restaurantApiKey)
@@ -773,7 +821,7 @@
       function ($stateProvider) {
         $stateProvider
           .state('app.status', {
-            url: '/status',
+            url: '/status/:id',
             views: {
               'menuContent': {
                 templateUrl: 'views/Home/status.html',
@@ -796,6 +844,7 @@
     'User',
     function ($state, User) {
       var vm = this;
+      User.logOut();
 
       vm.signIn = function () {
         User.authenticate()
@@ -952,6 +1001,9 @@
               'expMonth': vm.expMonth,
               'expYear': vm.expYear
             }).then(function () {
+              User.update({
+                'onboarded': true
+              });
               $state.go('app.home');
             }, handleErr);
           }, handleErr);
