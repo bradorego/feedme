@@ -10,7 +10,6 @@
       var User = {},
         ref = firebase.database().ref(),
         profile = {},
-        profilePending = false,
         getProfileRef = function (id) {
           return $firebaseObject(ref.child('users').child(id));
         };
@@ -114,10 +113,8 @@
           logIn($localStorage.profile.id)
             .then(function (profileRef) {
               profile = profileRef;
-              profilePending = false;
               return d.resolve(profileRef);
             }, function (err) {
-              profilePending = false;
               return d.reject(err);
             });
           return d.promise;

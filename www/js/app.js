@@ -85,6 +85,17 @@
           $state.go('login');
         };
         //// END FROM
+        User.getProfile()
+          .then(function (profile) {
+            var now = +new Date();
+            if (profile.currentOrder) {
+              if ((now - profile.currentOrder.estimatedDelivery) >= 7200000) { /// if your order is more than 2 hours old...
+                User.update({
+                  currentOrder: false
+                });
+              }
+            }
+          });
       }],
     appConfig = [
       '$stateProvider',

@@ -165,7 +165,8 @@
           "recipientApiKey": "485ca34bedf9153e7ecdb0c1c698d2cee41ee9406039e889",
           "card": null,
           "address": null,
-          "datePlaced": 1467322105000
+          "datePlaced": 1467322105000,
+          "estimatedDelivery": 1467323905000
         };
         User.update({ /// hope this succeeds
           currentOrder: tempOrder

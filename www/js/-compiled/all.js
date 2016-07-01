@@ -85,6 +85,17 @@
           $state.go('login');
         };
         //// END FROM
+        User.getProfile()
+          .then(function (profile) {
+            var now = +new Date();
+            if (profile.currentOrder) {
+              if ((now - profile.currentOrder.estimatedDelivery) >= 7200000) { /// if your order is more than 2 hours old...
+                User.update({
+                  currentOrder: false
+                });
+              }
+            }
+          });
       }],
     appConfig = [
       '$stateProvider',
@@ -289,7 +300,8 @@
           "recipientApiKey": "485ca34bedf9153e7ecdb0c1c698d2cee41ee9406039e889",
           "card": null,
           "address": null,
-          "datePlaced": 1467322105000
+          "datePlaced": 1467322105000,
+          "estimatedDelivery": 1467323905000
         };
         User.update({ /// hope this succeeds
           currentOrder: tempOrder
@@ -544,7 +556,6 @@
       var User = {},
         ref = firebase.database().ref(),
         profile = {},
-        profilePending = false,
         getProfileRef = function (id) {
           return $firebaseObject(ref.child('users').child(id));
         };
@@ -648,10 +659,8 @@
           logIn($localStorage.profile.id)
             .then(function (profileRef) {
               profile = profileRef;
-              profilePending = false;
               return d.resolve(profileRef);
             }, function (err) {
-              profilePending = false;
               return d.reject(err);
             });
           return d.promise;
@@ -698,7 +707,7 @@
           people: vm.people,
           amount: parseInt(vm.amount, 10)
         })
-          .then(function (succ) {
+          .then(function () { ///succ) {
             $state.go('app.status');
             $ionicLoading.hide();
           }, function (err) {

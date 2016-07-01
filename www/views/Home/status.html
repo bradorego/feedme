@@ -1,10 +1,10 @@
-<ion-view view-title="Status" id="status">
+<ion-view view-title="Your Order" id="status">
   <ion-nav-buttons side="right">
     <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
   </ion-nav-buttons>
   <ion-content class="">
     <div class="status padding" ng-if="vm.status">
-      <h3>Order Status</h3>
+      <h3>Status (est. delivery {{vm.order.estimatedDelivery| date: 'short' }})</h3>
       Last Updated: {{vm.status.updated | date: 'short'}}
       <div class="button-bar disabled">
         <button class="button button-balanced" disabled>Sent</button>
@@ -17,7 +17,7 @@
       Cannot get status update :(
     </div>
     <div class="order padding" ng-if="vm.order">
-      <h3>Order Details</h3>
+      <h3>Details</h3>
       Order Placed: {{vm.order.datePlaced | date:'short'}}
       <div class="list list-inset">
         <div class="item" ng-repeat="item in vm.order.items">
