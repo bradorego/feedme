@@ -6,6 +6,7 @@
     'User',
     function ($state, User) {
       var vm = this;
+      User.logOut();
 
       vm.signIn = function () {
         User.authenticate()
