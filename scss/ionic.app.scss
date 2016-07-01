@@ -24,6 +24,7 @@ $balanced:                        #6FB43F !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+//// overrides
 html,
 body,
 .click-block,
@@ -41,10 +42,33 @@ ion-nav-view,
     }
   }
 }
+.button-bar {
+  .button[disabled] {
+    opacity: 1;
+    white-space: initial;
+    border-radius: 0;
+  }
+}
+.popup-container {
+  z-index: 20;
+  .popup {
+    width: 100%;
+    margin: 20px;
+  }
+}
 
+
+/// custom
 .margin-top {
   margin-top: 10px;
 }
+
+#home {
+  .range {
+    margin-top: 10px;
+  }
+}
+
 #onboarding {
   .bar-subheader {
     line-height: 1;
@@ -84,11 +108,6 @@ ion-nav-view,
   }
 }
 
-.popup-container {
-  z-index: 20;
-}
-
-
 .button-box {
   font-size: 48px;
   font-weight: 900;
@@ -109,6 +128,17 @@ i.infobutton {
   font-size: 16px;
 }
 
-.button[disabled] {
-  opacity: 1;
+.restaurant {
+  margin: 0;
+  margin-top: 10px;
+  img {
+    border-radius: 50%;
+    width: 75px;
+    &.map {
+      border-radius: 0;
+      width: 100%;
+      padding: 0;
+    }
+  }
 }
+

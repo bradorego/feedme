@@ -9803,7 +9803,21 @@ ion-nav-view,
   .loading-container .loading img {
     border-radius: 50%; }
 
+.button-bar .button[disabled] {
+  opacity: 1;
+  white-space: initial;
+  border-radius: 0; }
+
+.popup-container {
+  z-index: 20; }
+  .popup-container .popup {
+    width: 100%;
+    margin: 20px; }
+
 .margin-top {
+  margin-top: 10px; }
+
+#home .range {
   margin-top: 10px; }
 
 #onboarding .bar-subheader {
@@ -9832,9 +9846,6 @@ ion-nav-view,
 .login img {
   width: 100%; }
 
-.popup-container {
-  z-index: 20; }
-
 .button-box {
   font-size: 48px;
   font-weight: 900;
@@ -9852,5 +9863,13 @@ i.infobutton {
   text-align: center;
   font-size: 16px; }
 
-.button[disabled] {
-  opacity: 1; }
+.restaurant {
+  margin: 0;
+  margin-top: 10px; }
+  .restaurant img {
+    border-radius: 50%;
+    width: 75px; }
+    .restaurant img.map {
+      border-radius: 0;
+      width: 100%;
+      padding: 0; }

@@ -1,4 +1,4 @@
-<ion-view view-title="Home">
+<ion-view view-title="Home" id="home">
   <ion-nav-buttons side="right">
     <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
   </ion-nav-buttons>
@@ -10,16 +10,17 @@
       <i class="icon">{{vm.people}}</i>
     </div> -->
 
-    <!-- <label class="item "> -->
-      <div ng-click="vm.budgetInfo()" class="item-label">Budget: <i class="icon ion-help infobutton"></i></div>
-      <div class="item range range-balanced">
-        <i class="icon ion-social-usd"></i>
-        <input type="range" name="volume" ng-model="vm.amount" min="15" max="100" step="5">
-        <i class="icon">{{vm.amount}}</i>
-      </div>
-    <!-- </label> -->
+    <div ng-click="vm.budgetInfo()" class="item-label">Budget: <i class="icon ion-help infobutton"></i></div>
+    <div class="item range range-balanced">
+      <i class="icon ion-social-usd"></i>
+      <input type="range" name="volume" ng-model="vm.amount" min="15" max="100" step="5">
+      <i class="icon">{{vm.amount}}</i>
+    </div>
     <div class="text-center">
       <button class="button button-box button-balanced" ng-click="vm.feedMe()">Feed<br/>Me</button>
     </div>
   </ion-content>
+  <ion-footer-bar align-title="center" ng-if="vm.user.currentOrder" ui-sref="app.status" class="bar-stable">
+    <h1 class="title">View Active Order</h1>
+  </ion-footer-bar>
 </ion-view>
