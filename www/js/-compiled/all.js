@@ -202,6 +202,21 @@
         return d.promise;
       };
 
+      EatStreet.getRestaurant = function (apiKey) {
+        var d = $q.defer();
+        if (!initialized) {
+          EatStreet.init();
+        }
+        ESApi.getRestaurantDetails({
+          'apiKey': apiKey
+        }, function (restaurant) {
+          if (restaurant.error) {
+            return d.reject(restaurant);
+          }
+          return d.resolve(restaurant);
+        });
+        return d.promise;
+      };
       /// obj.streetAddress, obj.method
       EatStreet.searchRestaurants = function (obj) {
         var d = $q.defer();
@@ -220,7 +235,7 @@
         var d = $q.defer();
         ESApi.getRestaurantMenu({
           apiKey: restaurant.apiKey
-        }, function(menuCategories) {
+        }, function (menuCategories) {
           if (menuCategories.error) {
             return d.reject(menuCategories);
           }
@@ -232,8 +247,9 @@
       ///obj.user, obj.items, obj.restaurant
       EatStreet.submitOrder = function (obj) {
         var d = $q.defer(),
-          formattedItems = obj.items.map(function (item) { return {"apiKey": item.apiKey};});
-        var tempOrder = {
+          formattedItems = obj.items.map(function (item) { return {"apiKey": item.apiKey}; }), //;
+          tempOrder = {};
+        tempOrder = {
           "apiKey": "7422332c294e951182e0cae4654d77350320b34b47176fee",
           "items": [
             {
@@ -253,7 +269,7 @@
           "recipientApiKey": "485ca34bedf9153e7ecdb0c1c698d2cee41ee9406039e889",
           "card": null,
           "address": null,
-          "datePlaced": 1467322105
+          "datePlaced": 1467322105000
         };
         User.update({ /// hope this succeeds
           currentOrder: tempOrder
@@ -273,6 +289,7 @@
         //   if (order.error) {
         //     return d.reject(order);
         //   }
+        //   order.datePlaced *= 1000;
         //   User.update({ /// hope this succeeds
         //     currentOrder: order
         //   }, function () {
@@ -286,7 +303,38 @@
         // });
         // return d.promise;
       };
-
+      EatStreet.getOrderDetails = function (id) {
+        var d = $q.defer();
+        if (!initialized) {
+          EatStreet.init();
+        }
+        ESApi.getOrder({
+          'apiKey': id
+        }, function (order) {
+          if (order.error) {
+            return d.reject(order);
+          }
+          order.datePlaced *= 1000;
+          return d.resolve(order);
+        });
+        return d.promise;
+      };
+      EatStreet.getOrderStatus = function (id) {
+        var d = $q.defer();
+        if (!initialized) {
+          EatStreet.init();
+        }
+        ESApi.getOrderStatus({
+          'apiKey': id
+        }, function (status) {
+          if (status.error) {
+            return d.reject(status);
+          }
+          status.updated = new Date(status.updated);
+          return d.resolve(status);
+        });
+        return d.promise;
+      };
       /// obj.amount
       EatStreet.feedMe = function (obj) {
         var d = $q.defer(),
@@ -352,21 +400,19 @@
                     if (!items.length) { // start over?
                       return d.reject({message: "No valid items for this restaurant"});
                     }
-                    for (runningCost = luckyRestaurant.deliveryPrice; runningCost < obj.amount;) {
+                    for (runningCost = luckyRestaurant.deliveryPrice; runningCost < obj.amount; null) {
                       itemIndex = Math.floor(Math.random() * items.length);
                       actualPrice = (items[itemIndex].basePrice * (1 + luckyRestaurant.taxRate));
                       if ((runningCost + actualPrice) >= obj.amount) {
                         if (toOrder.length === 0) {
                           console.log("sadtrombone.com");
                           continue; /// let's make sure there's at least one item....
-                        } else {
-                          break;
                         }
-                      } else {  /// we can add it!
-                        toOrder.push(items[itemIndex]);
-                        items.splice(itemIndex, 1); /// no duplicates
-                        runningCost += actualPrice;
+                        break;
                       }
+                      toOrder.push(items[itemIndex]);
+                      items.splice(itemIndex, 1); /// no duplicates
+                      runningCost += actualPrice;
                     }
                     console.log(runningCost, toOrder);
                     EatStreet.submitOrder({
@@ -461,11 +507,14 @@
       var User = {},
         ref = firebase.database().ref(),
         profile = {},
+        profilePending = false,
         getProfileRef = function (id) {
           return $firebaseObject(ref.child('users').child(id));
         };
-      function createUser(profileRef, data) {
-        var d = $q.defer();
+      function createUser(id, data) {
+        var d = $q.defer(),
+          profileRef = getProfileRef(id);
+
         profileRef.$id = data.uid;
         profileRef.name = data.displayName;
         profileRef.email = data.email;
@@ -479,8 +528,9 @@
           });
         return d.promise;
       }
-      function logIn(profileRef) {
-        var d = $q.defer();
+      function logIn(id) {
+        var d = $q.defer(),
+          profileRef = getProfileRef(id);
         profileRef.$loaded()
           .then(function () {
             profileRef.lastSignIn = +new Date();
@@ -548,16 +598,21 @@
 
       User.getProfile = function () {
         var d = $q.defer();
-        if (!profile.$id && (!$localStorage.profile || !$localStorage.profile.id)) {
+        if (profile.email) {
+          return $q.when(profile);
+        }
+        if (!$localStorage.profile || !$localStorage.profile.id) {
           d.reject({message: "No profile found. Try logging in."});
           return d.promise;
         }
-        if (!profile.$id && ($localStorage.profile && $localStorage.profile.id)) {
-          profile = getProfileRef($localStorage.profile.id);
-          logIn(profile)
+        if ($localStorage.profile && $localStorage.profile.id) {
+          logIn($localStorage.profile.id)
             .then(function (profileRef) {
+              profile = profileRef;
+              profilePending = false;
               return d.resolve(profileRef);
             }, function (err) {
+              profilePending = false;
               return d.reject(err);
             });
           return d.promise;
@@ -584,7 +639,8 @@
     '$ionicLoading',
     'EatStreet',
     '$ionicPopup',
-    function ($ionicLoading, EatStreet, $ionicPopup) {
+    '$state',
+    function ($ionicLoading, EatStreet, $ionicPopup, $state) {
       var vm = this;
       vm.people = 2;
       vm.amount = 20;
@@ -593,8 +649,8 @@
           title: "Budget",
           template: "<p>Tell us how much you'd like to spend and we'll figure out the rest for you.</p><p>Note: We try really hard to get you the most food without going over budget, but it's possible with tax and delivery charges that the total amount will be a tiny bit over - we can only do as good as the data we're given by EatStreet. Thanks for your patience and understanding.</p>",
           okType: "button-balanced"
-        })
-      }
+        });
+      };
       vm.feedMe = function () {
         $ionicLoading.show();
         EatStreet.feedMe({
@@ -603,6 +659,7 @@
         })
           .then(function (succ) {
             console.log(succ);
+            $state.go('app.status');
             $ionicLoading.hide();
           }, function (err) {
             $ionicLoading.hide();
@@ -658,17 +715,58 @@
   var statusResolve = {
     'user': [
       'User',
-      function(User) {
+      function (User) {
         return User.getProfile();
       }]
-    },
+  },
     statusCtrl = [
       'user',
-      function (user) {
+      'EatStreet',
+      function (user, EatStreet) {
         var vm = this;
         console.log(user);
-        vm.user = user;
+        vm.order = user.currentOrder;
         angular.noop(vm);
+        EatStreet.getRestaurant(vm.order.restaurantApiKey)
+          .then(function (restaurant) {
+            vm.restaurant = restaurant;
+          }, function (err) {
+            vm.restaurant = false;
+            vm.restaurant = {
+              "apiKey": "90fd4587554469b1459c89af9c680205d30b6aeaa238f8d1",
+              "logoUrl": "https://eatstreet-static.s3.amazonaws.com/assets/images/restaurant_logos/88-china-authentic-chinese-4631_1400537432746.png",
+              "name": "88 China - Authentic Chinese",
+              "streetAddress": "608 University Avenue",
+              "city": "Madison",
+              "state": "WI",
+              "zip": "53715",
+              "latitude": 43.0732908179745,
+              "longitude": -89.3961805764666
+            };
+            console.warn(err);
+          });
+        EatStreet.getOrderStatus(vm.order.apiKey)
+          .then(function (status) {
+            if (status.status === "SENT") {
+              status.statusCode = 0;
+            } else if (status.status === "RECEIVED") {
+              status.statusCode = 1;
+            } else if (status.status === "OUT") {
+              status.statusCode = 2;
+            } else if (status.status === "DELIVERED") {
+              status.statusCode = 3;
+            }
+            vm.status = status;
+          }, function (err) {
+            vm.status = false;
+            vm.status = {
+              "updated": "2016-06-30 04:28 PM CDT",
+              "status": "SENT",
+              statusCode: 0
+            };
+            vm.status.updated = new Date(vm.status.updated);
+            console.warn(err);
+          });
       }],
     statusConfig = [
       '$stateProvider',
@@ -679,7 +777,8 @@
             views: {
               'menuContent': {
                 templateUrl: 'views/Home/status.html',
-                controller: 'StatusCtrl as vm'
+                controller: 'StatusCtrl as vm',
+                resolve: statusResolve
               }
             }
           });

@@ -10,11 +10,14 @@
       var User = {},
         ref = firebase.database().ref(),
         profile = {},
+        profilePending = false,
         getProfileRef = function (id) {
           return $firebaseObject(ref.child('users').child(id));
         };
-      function createUser(profileRef, data) {
-        var d = $q.defer();
+      function createUser(id, data) {
+        var d = $q.defer(),
+          profileRef = getProfileRef(id);
+
         profileRef.$id = data.uid;
         profileRef.name = data.displayName;
         profileRef.email = data.email;
@@ -28,8 +31,9 @@
           });
         return d.promise;
       }
-      function logIn(profileRef) {
-        var d = $q.defer();
+      function logIn(id) {
+        var d = $q.defer(),
+          profileRef = getProfileRef(id);
         profileRef.$loaded()
           .then(function () {
             profileRef.lastSignIn = +new Date();
@@ -97,16 +101,21 @@
 
       User.getProfile = function () {
         var d = $q.defer();
-        if (!profile.$id && (!$localStorage.profile || !$localStorage.profile.id)) {
+        if (profile.email) {
+          return $q.when(profile);
+        }
+        if (!$localStorage.profile || !$localStorage.profile.id) {
           d.reject({message: "No profile found. Try logging in."});
           return d.promise;
         }
-        if (!profile.$id && ($localStorage.profile && $localStorage.profile.id)) {
-          profile = getProfileRef($localStorage.profile.id);
-          logIn(profile)
+        if ($localStorage.profile && $localStorage.profile.id) {
+          logIn($localStorage.profile.id)
             .then(function (profileRef) {
+              profile = profileRef;
+              profilePending = false;
               return d.resolve(profileRef);
             }, function (err) {
+              profilePending = false;
               return d.reject(err);
             });
           return d.promise;

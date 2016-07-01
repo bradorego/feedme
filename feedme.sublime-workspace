@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"menu",
+				"menuCategories"
+			],
+			[
 				"mragin-",
 				"margin-top"
 			],
@@ -140,90 +144,60 @@
 	"buffers":
 	[
 		{
-			"file": "www/views/Onboarding/Onboarding.js",
-			"settings":
-			{
-				"buffer_size": 801,
-				"line_ending": "Unix",
-				"name": "Onboarding.js"
-			}
-		},
-		{
-			"file": "www/views/Onboarding/Onboarding.html",
-			"settings":
-			{
-				"buffer_size": 856,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "www/views/Onboarding/getPhone.html",
-			"settings":
-			{
-				"buffer_size": 982,
-				"line_ending": "Unix",
-				"name": "getPhone.html"
-			}
-		},
-		{
-			"file": "www/views/Onboarding/getPhone.js",
-			"settings":
-			{
-				"buffer_size": 1677,
-				"line_ending": "Unix",
-				"name": "getPhone.js"
-			}
-		},
-		{
-			"file": "www/views/Onboarding/address.js",
-			"settings":
-			{
-				"buffer_size": 940,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<ion-view view-title=\"Delivery Address\" cache-view=\"false\"hide-back-button=\"true\">\n  <ion-nav-buttons side=\"right\">\n    <button ng-click=\"vm.skip()\">Skip</button>\n  </ion-nav-buttons>\n  <ion-content class=\"padding text-center has-subheader\">\n    <h4>Where should food be delivered?</h4>\n    <label class=\"item item-input\">\n      <input type=\"text\" ng-autocomplete ng-model=\"vm.autocomplete\" options=\"{watchEnter: true}\" />\n    </label>\n    <img ng-src=\"\"\n  </ion-content>\n  <div class=\"bar bar-subfooter stacked-footer\">\n    <button class=\"button button-block icon-right button-balanced\" ng-disabled=\"vm.disabled\" ng-click=\"vm.continue()\">Continue</button>\n  </div>\n</ion-view>\n",
-			"file": "www/views/Onboarding/address.html",
-			"file_size": 659,
-			"file_write_time": 131116849760000000,
-			"settings":
-			{
-				"buffer_size": 678,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "www/js/services/EatStreet.js",
 			"settings":
 			{
-				"buffer_size": 2613,
+				"buffer_size": 11571,
 				"line_ending": "Unix",
 				"name": "EatStreet.js"
+			}
+		},
+		{
+			"file": "www/views/Home/status.js",
+			"settings":
+			{
+				"buffer_size": 863,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/views/Home/status.html",
+			"settings":
+			{
+				"buffer_size": 257,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/views/Home/home.html",
+			"settings":
+			{
+				"buffer_size": 1016,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/views/Home/home.js",
+			"settings":
+			{
+				"buffer_size": 2768,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "www/js/services/User.js",
 			"settings":
 			{
-				"buffer_size": 4008,
+				"buffer_size": 4250,
 				"line_ending": "Unix",
 				"name": "User.js"
-			}
-		},
-		{
-			"file": "www/js/app.js",
-			"settings":
-			{
-				"buffer_size": 4633,
-				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "scss/ionic.app.scss",
 			"settings":
 			{
-				"buffer_size": 1770,
+				"buffer_size": 2001,
 				"line_ending": "Unix"
 			}
 		}
@@ -287,14 +261,18 @@
 	],
 	"file_history":
 	[
-		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/address.js",
-		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/creditCard.js",
-		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Home/status.js",
-		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Home/home.js",
-		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Home/home.html",
-		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/address.html",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/js/app.js",
 		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/creditCard.html",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/Onboarding.js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/creditCard.js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Home/home.js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/getPhone.html",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/address.html",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/address.js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/getPhone.js",
 		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Onboarding/Onboarding.html",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Home/status.js",
+		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Home/home.html",
 		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Login/Login.User.js",
 		"/Users/mi-bradorego/Development/feed-me-madison/www/views/Login/login.User.html",
 		"/Users/mi-bradorego/Development/feed-me-madison/www/index.html",
@@ -306,7 +284,6 @@
 		"/Users/mi-bradorego/Development/feed-me-madison/gulpfile.js",
 		"/Users/mi-bradorego/Development/feed-me-madison/www/lib/eatstreet.min.js",
 		"/Users/mi-bradorego/Development/feed-me-madison/www/views/menu.html",
-		"/Users/mi-bradorego/Development/feed-me-madison/www/js/app.js",
 		"/Users/mi-bradorego/Development/feed-me-madison/www/css/style.css",
 		"/Users/mi-bradorego/Development/feed-me-madison/config.xml",
 		"/Users/mi-bradorego/Development/feed-me-madison/package.json",
@@ -411,10 +388,7 @@
 		"/Users/mi-bradorego/Development/HugoBasicExample/archetypes/post.md",
 		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/post/single.html",
 		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/related-posts.html",
-		"/Users/mi-bradorego/Development/HugoBasicExample/static/js/clean-blog.js",
-		"/Users/mi-bradorego/Development/HugoBasicExample/layouts/partials/page-header.html",
-		"/Users/mi-bradorego/Development/HugoBasicExample/static/less/simple-sidebar.less",
-		"/Users/mi-bradorego/Development/HugoBasicExample/static/less/mixins.less"
+		"/Users/mi-bradorego/Development/HugoBasicExample/static/js/clean-blog.js"
 	],
 	"find":
 	{
@@ -437,6 +411,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"randomIndex",
+			".lng",
+			".lat",
+			"geometry.",
 			"address",
 			"getPhone",
 			"connectWifi",
@@ -560,11 +538,7 @@
 			"getSiteData",
 			"$localStorage.user",
 			"formatCommandCenter",
-			"splash",
-			"$location.go",
-			"commandCenter",
-			"token.expires_in",
-			"token.expir"
+			"splash"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -572,6 +546,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"itemIndex",
+			".lng()",
+			".lat()",
+			"geometry.location.",
 			"creditCard",
 			"address",
 			"getPhone",
@@ -634,24 +612,24 @@
 			[
 				{
 					"buffer": 0,
-					"file": "www/views/Onboarding/Onboarding.js",
+					"file": "www/js/services/EatStreet.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 801,
+						"buffer_size": 11571,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								116,
-								116
+								8835,
+								8835
 							]
 						],
 						"settings":
 						{
-							"auto_name": "Onboarding.js",
+							"auto_name": "EatStreet.js",
 							"editorconfig": true,
 							"ensure_newline_at_eof_on_save": true,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
@@ -660,129 +638,27 @@
 							"trim_trailing_white_space_on_save": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2666.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "www/views/Onboarding/Onboarding.html",
+					"file": "www/views/Home/status.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 856,
+						"buffer_size": 863,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								89,
-								89
-							]
-						],
-						"settings":
-						{
-							"editorconfig": true,
-							"ensure_newline_at_eof_on_save": true,
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"trim_trailing_white_space_on_save": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "www/views/Onboarding/getPhone.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 982,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								829,
-								829
-							]
-						],
-						"settings":
-						{
-							"auto_name": "getPhone.html",
-							"editorconfig": true,
-							"ensure_newline_at_eof_on_save": true,
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"trim_trailing_white_space_on_save": true,
-							"word_wrap": false
-						},
-						"translation.x": 36.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "www/views/Onboarding/getPhone.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1677,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								264,
-								264
-							]
-						],
-						"settings":
-						{
-							"auto_name": "getPhone.js",
-							"editorconfig": true,
-							"ensure_newline_at_eof_on_save": true,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"trim_trailing_white_space_on_save": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 27.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "www/views/Onboarding/address.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 940,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								340,
-								340
+								135,
+								135
 							]
 						],
 						"settings":
@@ -802,20 +678,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "www/views/Onboarding/address.html",
+					"buffer": 2,
+					"file": "www/views/Home/status.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 678,
+						"buffer_size": 257,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								453,
-								453
+								225,
+								225
 							]
 						],
 						"settings":
@@ -831,29 +707,61 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "www/js/services/EatStreet.js",
+					"buffer": 3,
+					"file": "www/views/Home/home.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2613,
+						"buffer_size": 1016,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2473,
-								2473
+								0,
+								1016
 							]
 						],
 						"settings":
 						{
-							"auto_name": "EatStreet.js",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "www/views/Home/home.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2768,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								802,
+								802
+							]
+						],
+						"settings":
+						{
 							"editorconfig": true,
 							"ensure_newline_at_eof_on_save": true,
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
@@ -865,24 +773,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 5,
 					"file": "www/js/services/User.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4008,
+						"buffer_size": 4250,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								183,
-								183
+								3668,
+								3668
 							]
 						],
 						"settings":
@@ -896,60 +804,27 @@
 							"trim_trailing_white_space_on_save": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1604.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "www/js/app.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4633,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1191,
-								1191
-							]
-						],
-						"settings":
-						{
-							"editorconfig": true,
-							"ensure_newline_at_eof_on_save": true,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"trim_trailing_white_space_on_save": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 369.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
+					"buffer": 6,
 					"file": "scss/ionic.app.scss",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1770,
+						"buffer_size": 2001,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1341,
-								1341
+								1861,
+								1861
 							]
 						],
 						"settings":
@@ -962,10 +837,10 @@
 							"trim_trailing_white_space_on_save": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1155.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1024,16 +899,40 @@
 		"selected_items":
 		[
 			[
+				"phone.html",
+				"www/views/Onboarding/getPhone.html"
+			],
+			[
+				"address.ht",
+				"www/views/Onboarding/address.html"
+			],
+			[
+				"phone.js",
+				"www/views/Onboarding/getPhone.js"
+			],
+			[
+				"credicard.ht",
+				"www/views/Onboarding/creditCard.html"
+			],
+			[
+				"address.js",
+				"www/views/Onboarding/address.js"
+			],
+			[
+				"phone",
+				"www/views/Onboarding/getPhone.js"
+			],
+			[
+				"getphone.js",
+				"www/views/Onboarding/getPhone.js"
+			],
+			[
 				"adress.js",
 				"www/views/Onboarding/address.js"
 			],
 			[
 				"creditcard.js",
 				"www/views/Onboarding/creditCard.js"
-			],
-			[
-				"address.js",
-				"www/views/Onboarding/address.js"
 			],
 			[
 				"home.js",
@@ -1422,7 +1321,7 @@
 		[
 			[
 				"",
-				"~/Development/betterbeerweek/betterbeerweek.sublime-workspace"
+				"~/Development/refit-trainer/refit.sublime-project"
 			],
 			[
 				"quant",

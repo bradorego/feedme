@@ -74,6 +74,21 @@
         return d.promise;
       };
 
+      EatStreet.getRestaurant = function (apiKey) {
+        var d = $q.defer();
+        if (!initialized) {
+          EatStreet.init();
+        }
+        ESApi.getRestaurantDetails({
+          'apiKey': apiKey
+        }, function (restaurant) {
+          if (restaurant.error) {
+            return d.reject(restaurant);
+          }
+          return d.resolve(restaurant);
+        });
+        return d.promise;
+      };
       /// obj.streetAddress, obj.method
       EatStreet.searchRestaurants = function (obj) {
         var d = $q.defer();
@@ -92,7 +107,7 @@
         var d = $q.defer();
         ESApi.getRestaurantMenu({
           apiKey: restaurant.apiKey
-        }, function(menuCategories) {
+        }, function (menuCategories) {
           if (menuCategories.error) {
             return d.reject(menuCategories);
           }
@@ -104,8 +119,9 @@
       ///obj.user, obj.items, obj.restaurant
       EatStreet.submitOrder = function (obj) {
         var d = $q.defer(),
-          formattedItems = obj.items.map(function (item) { return {"apiKey": item.apiKey};});
-        var tempOrder = {
+          formattedItems = obj.items.map(function (item) { return {"apiKey": item.apiKey}; }), //;
+          tempOrder = {};
+        tempOrder = {
           "apiKey": "7422332c294e951182e0cae4654d77350320b34b47176fee",
           "items": [
             {
@@ -125,7 +141,7 @@
           "recipientApiKey": "485ca34bedf9153e7ecdb0c1c698d2cee41ee9406039e889",
           "card": null,
           "address": null,
-          "datePlaced": 1467322105
+          "datePlaced": 1467322105000
         };
         User.update({ /// hope this succeeds
           currentOrder: tempOrder
@@ -145,6 +161,7 @@
         //   if (order.error) {
         //     return d.reject(order);
         //   }
+        //   order.datePlaced *= 1000;
         //   User.update({ /// hope this succeeds
         //     currentOrder: order
         //   }, function () {
@@ -158,7 +175,38 @@
         // });
         // return d.promise;
       };
-
+      EatStreet.getOrderDetails = function (id) {
+        var d = $q.defer();
+        if (!initialized) {
+          EatStreet.init();
+        }
+        ESApi.getOrder({
+          'apiKey': id
+        }, function (order) {
+          if (order.error) {
+            return d.reject(order);
+          }
+          order.datePlaced *= 1000;
+          return d.resolve(order);
+        });
+        return d.promise;
+      };
+      EatStreet.getOrderStatus = function (id) {
+        var d = $q.defer();
+        if (!initialized) {
+          EatStreet.init();
+        }
+        ESApi.getOrderStatus({
+          'apiKey': id
+        }, function (status) {
+          if (status.error) {
+            return d.reject(status);
+          }
+          status.updated = new Date(status.updated);
+          return d.resolve(status);
+        });
+        return d.promise;
+      };
       /// obj.amount
       EatStreet.feedMe = function (obj) {
         var d = $q.defer(),
@@ -224,21 +272,19 @@
                     if (!items.length) { // start over?
                       return d.reject({message: "No valid items for this restaurant"});
                     }
-                    for (runningCost = luckyRestaurant.deliveryPrice; runningCost < obj.amount;) {
+                    for (runningCost = luckyRestaurant.deliveryPrice; runningCost < obj.amount; null) {
                       itemIndex = Math.floor(Math.random() * items.length);
                       actualPrice = (items[itemIndex].basePrice * (1 + luckyRestaurant.taxRate));
                       if ((runningCost + actualPrice) >= obj.amount) {
                         if (toOrder.length === 0) {
                           console.log("sadtrombone.com");
                           continue; /// let's make sure there's at least one item....
-                        } else {
-                          break;
                         }
-                      } else {  /// we can add it!
-                        toOrder.push(items[itemIndex]);
-                        items.splice(itemIndex, 1); /// no duplicates
-                        runningCost += actualPrice;
+                        break;
                       }
+                      toOrder.push(items[itemIndex]);
+                      items.splice(itemIndex, 1); /// no duplicates
+                      runningCost += actualPrice;
                     }
                     console.log(runningCost, toOrder);
                     EatStreet.submitOrder({

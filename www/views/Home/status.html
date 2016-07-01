@@ -3,6 +3,41 @@
     <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
   </ion-nav-buttons>
   <ion-content class="padding">
-    {{vm.user}}
+    <h1>Order Status</h1>
+    <div class="" ng-if="vm.status">
+      Last Updated: {{vm.status.updated | date: 'short'}}
+      <div class="button-bar disabled">
+        <button class="button button-balanced" disabled>Sent</button>
+        <button class="button" disabled ng-class="{'button-balanced': vm.status.statusCode > 0}">Received</button>
+        <button class="button" disabled ng-class="{'button-balanced': vm.status.statusCode > 1}">Out for Delivery</button>
+        <button class="button" disabled ng-class="{'button-balanced': vm.status.statusCode > 2}">Delivered</button>
+      </div>
+    </div>
+    <div class="" ng-if="!vm.status">
+      Cannot get status update :(
+    </div>
+    <h1>Order Details</h1>
+    <div class="" ng-if="vm.order">
+      Order Placed: {{vm.order.datePlaced | date:'short'}}
+      <ion-list>
+        <ion-item ng-repeat="item in vm.order.items">
+          {{item.name}} {{item.totalPrice}}
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="" ng-if="!vm.order">
+      Cannot get order details :(
+    </div>
+    <h1>Restaurant</h1>
+    <div class="" ng-if="vm.restaurant">
+      <img ng-src="{{vm.restaurant.logoUrl}}">
+      {{vm.restaurant.name}}
+      {{vm.restaurant.streetAddress}}, {{vm.restaurant.city}}, {{vm.restaurant.state}} {{vm.restaurant.zip}}
+      <img class="map" ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{vm.restaurant.latitude}},{{vm.restaurant.longitude}}&zoom=15&size=400x200&markers=color:'red'%7C{{vm.restaurant.latitude}},{{vm.restaurant.longitude}}">
+      }
+    </div>
+    <div class="" ng-if="!vm.restaurant">
+      Cannot get restaurant details :(
+    </div>
   </ion-content>
 </ion-view>

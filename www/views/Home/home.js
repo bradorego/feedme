@@ -5,7 +5,8 @@
     '$ionicLoading',
     'EatStreet',
     '$ionicPopup',
-    function ($ionicLoading, EatStreet, $ionicPopup) {
+    '$state',
+    function ($ionicLoading, EatStreet, $ionicPopup, $state) {
       var vm = this;
       vm.people = 2;
       vm.amount = 20;
@@ -14,8 +15,8 @@
           title: "Budget",
           template: "<p>Tell us how much you'd like to spend and we'll figure out the rest for you.</p><p>Note: We try really hard to get you the most food without going over budget, but it's possible with tax and delivery charges that the total amount will be a tiny bit over - we can only do as good as the data we're given by EatStreet. Thanks for your patience and understanding.</p>",
           okType: "button-balanced"
-        })
-      }
+        });
+      };
       vm.feedMe = function () {
         $ionicLoading.show();
         EatStreet.feedMe({
@@ -24,6 +25,7 @@
         })
           .then(function (succ) {
             console.log(succ);
+            $state.go('app.status');
             $ionicLoading.hide();
           }, function (err) {
             $ionicLoading.hide();

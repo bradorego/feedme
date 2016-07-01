@@ -108,3 +108,7 @@ i.infobutton {
   text-align: center;
   font-size: 16px;
 }
+
+.button[disabled] {
+  opacity: 1;
+}
