@@ -23,7 +23,8 @@
         $ionicLoading.show();
         EatStreet.feedMe({
           people: vm.people,
-          amount: parseInt(vm.amount, 10)
+          amount: parseInt(vm.amount, 10),
+          forRealsies: vm.user.forRealsies
         })
           .then(function () { ///succ) {
             $state.go('app.status');

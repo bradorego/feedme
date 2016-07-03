@@ -275,70 +275,71 @@
         }
         return d.promise;
       };
-      ///obj.user, obj.items, obj.restaurant
+      ///obj.user, obj.items, obj.restaurant, obj.forRealsies
       EatStreet.submitOrder = function (obj) {
         var d = $q.defer(),
           formattedItems = obj.items.map(function (item) { return {"apiKey": item.apiKey}; }), //;
           tempOrder = {};
-        tempOrder = {
-          "apiKey": "7422332c294e951182e0cae4654d77350320b34b47176fee",
-          "items": [
-            {
-              "apiKey": "35191",
-              "comments": "Pile it high!",
-              "name": "8. Angel Chicken Wing (4)",
-              "basePrice": 6.95,
-              "totalPrice": 6.95,
-              "customizationChoices": []
-            }
-          ],
-          "method": "pickup",
-          "payment": "cash",
-          "tip": 0,
-          "restaurantApiKey": "90fd4587554469b1f15b4f2e73e761809f4b4bcca52eedca",
-          "comments": null,
-          "recipientApiKey": "485ca34bedf9153e7ecdb0c1c698d2cee41ee9406039e889",
-          "card": null,
-          "address": null,
-          "datePlaced": 1467322105000,
-          "estimatedDelivery": 1467323905000
-        };
-        User.update({ /// hope this succeeds
-          currentOrder: tempOrder
-        });
-        d.resolve(tempOrder);
+        if (obj.forRealsies) { /// should we actually submit the order?
+          try {
+            ESApi.submitOrder({
+              'restaurantApiKey': obj.restaurant.apiKey,
+              'items': formattedItems,
+              'method': 'delivery',
+              'payment': 'card',
+              'card': obj.user.card,
+              'address': obj.user.address,
+              'recipient': obj.user.apiKey
+            }, function (order) {
+              if (order.error) {
+                return d.reject(order);
+              }
+              order.datePlaced *= 1000;
+              order.estimatedDelivery = order.datePlaced + 1800000; /// 30 minutes in ms
+              User.update({ /// hope this succeeds
+                currentOrder: order
+              }, function () {
+
+              }, function (err) {
+                User.update({ /// retry it with just a flag?
+                  currentOrder: true
+                });
+              });
+              return d.resolve(order);
+            });
+          } catch (err) {
+            d.reject(err);
+          }
+        } else {
+          tempOrder = {
+            "apiKey": "7422332c294e951182e0cae4654d77350320b34b47176fee",
+            "items": [
+              {
+                "apiKey": "35191",
+                "comments": "Pile it high!",
+                "name": "8. Angel Chicken Wing (4)",
+                "basePrice": 6.95,
+                "totalPrice": 6.95,
+                "customizationChoices": []
+              }
+            ],
+            "method": "pickup",
+            "payment": "cash",
+            "tip": 0,
+            "restaurantApiKey": "90fd4587554469b1f15b4f2e73e761809f4b4bcca52eedca",
+            "comments": null,
+            "recipientApiKey": "485ca34bedf9153e7ecdb0c1c698d2cee41ee9406039e889",
+            "card": null,
+            "address": null,
+            "datePlaced": 1467322105000,
+            "estimatedDelivery": 1467323905000
+          };
+          User.update({ /// hope this succeeds
+            currentOrder: tempOrder
+          });
+          d.resolve(tempOrder);
+        }
         return d.promise;
-
-        // try {
-          // ESApi.submitOrder({
-          //   'restaurantApiKey': obj.restaurant.apiKey,
-          //   'items': formattedItems,
-          //   'method': 'delivery',
-          //   'payment': 'card',
-          //   'card': obj.user.card,
-          //   'address': obj.user.address,
-          //   'recipient': obj.user.apiKey
-          // }, function (order) {
-          //   if (order.error) {
-          //     return d.reject(order);
-          //   }
-          //   order.datePlaced *= 1000;
-          //   order.estimatedDelivery = order.datePlaced + 1800000; /// 30 minutes in ms
-          //   User.update({ /// hope this succeeds
-          //     currentOrder: order
-          //   }, function () {
-
-          //   }, function (err) {
-          //     User.update({ /// retry it with just a flag?
-          //       currentOrder: true
-          //     });
-          //   });
-          //   return d.resolve(order);
-          // });
-        // } catch (err) {
-        //   d.reject(err);
-        // }
-        // return d.promise;
       };
       EatStreet.getOrderDetails = function (id) {
         var d = $q.defer();
@@ -380,7 +381,7 @@
         }
         return d.promise;
       };
-      /// obj.amount
+      /// obj.amount, obj.forRealsies
       EatStreet.feedMe = function (obj) {
         var d = $q.defer(),
           missing = {},
@@ -463,7 +464,8 @@
                     EatStreet.submitOrder({
                       user: profile,
                       items: toOrder,
-                      restaurant: luckyRestaurant
+                      restaurant: luckyRestaurant,
+                      forRealsies: obj.forRealsies
                     }).then(function (order) {
                       /*
                       {
@@ -680,6 +682,48 @@
     .service('User', UserFact);
 }());
 
+///account.js
+(function () {
+  'use strict';
+  var accountResolve = {
+    'user': [
+      'User',
+      function (User) {
+        return User.getProfile();
+      }]
+  },
+    accountCtrl = [
+      'user',
+      'User',
+      function (user, User) {
+        var vm = this;
+        vm.user = user;
+        vm.updateForRealsies = function () {
+          User.update({
+            forRealsies: vm.user.forRealsies
+          });
+        };
+      }],
+    accountConfig = [
+      '$stateProvider',
+      function ($stateProvider) {
+        $stateProvider
+          .state('app.account', {
+            url: '/account',
+            views: {
+              'menuContent': {
+                templateUrl: 'views/Home/account.html',
+                controller: 'AccountCtrl as vm',
+                resolve: accountResolve
+              }
+            }
+          });
+      }];
+  angular.module('feed-me')
+    .controller('AccountCtrl', accountCtrl)
+    .config(accountConfig);
+}());
+
 /// home.Home.js
 (function () {
   'use strict';
@@ -705,7 +749,8 @@
         $ionicLoading.show();
         EatStreet.feedMe({
           people: vm.people,
-          amount: parseInt(vm.amount, 10)
+          amount: parseInt(vm.amount, 10),
+          forRealsies: vm.user.forRealsies
         })
           .then(function () { ///succ) {
             $state.go('app.status');
@@ -789,17 +834,19 @@
             vm.restaurant = restaurant;
           }, function (err) {
             vm.restaurant = false;
-            vm.restaurant = {
-              "apiKey": "90fd4587554469b1459c89af9c680205d30b6aeaa238f8d1",
-              "logoUrl": "https://eatstreet-static.s3.amazonaws.com/assets/images/restaurant_logos/88-china-authentic-chinese-4631_1400537432746.png",
-              "name": "88 China - Authentic Chinese",
-              "streetAddress": "608 University Avenue",
-              "city": "Madison",
-              "state": "WI",
-              "zip": "53715",
-              "latitude": 43.0732908179745,
-              "longitude": -89.3961805764666
-            };
+            if (!user.forRealsies) { /// fake it till you make it
+              vm.restaurant = {
+                "apiKey": "90fd4587554469b1459c89af9c680205d30b6aeaa238f8d1",
+                "logoUrl": "https://eatstreet-static.s3.amazonaws.com/assets/images/restaurant_logos/88-china-authentic-chinese-4631_1400537432746.png",
+                "name": "88 China - Authentic Chinese",
+                "streetAddress": "608 University Avenue",
+                "city": "Madison",
+                "state": "WI",
+                "zip": "53715",
+                "latitude": 43.0732908179745,
+                "longitude": -89.3961805764666
+              };
+            }
             console.warn(err);
           });
         EatStreet.getOrderStatus(vm.order.apiKey)
@@ -816,12 +863,14 @@
             vm.status = status;
           }, function (err) {
             vm.status = false;
-            vm.status = {
-              "updated": "2016-06-30 04:28 PM CDT",
-              "status": "SENT",
-              statusCode: 0
-            };
-            vm.status.updated = new Date(vm.status.updated);
+            if (!user.forRealsies) {
+              vm.status = {
+                "updated": "2016-06-30 04:28 PM CDT",
+                "status": "SENT",
+                statusCode: 0
+              };
+              vm.status.updated = new Date(vm.status.updated);
+            }
             console.warn(err);
           });
       }],
